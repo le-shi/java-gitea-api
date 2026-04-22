@@ -37,9 +37,9 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>com.github.zeripath</groupId>
+  <groupId>io.github.le-shi</groupId>
   <artifactId>java-gitea-api</artifactId>
-  <version>1.18.0</version>
+  <version>1.21.1</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -49,7 +49,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.github.zeripath:java-gitea-api:1.18.0"
+implementation "io.github.le-shi:java-gitea-api:1.21.1"
 ```
 
 ### Others
