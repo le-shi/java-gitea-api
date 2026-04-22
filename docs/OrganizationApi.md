@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createOrgRepo**](OrganizationApi.md#createOrgRepo) | **POST** /orgs/{org}/repos | Create a repository in an organization
 [**createOrgRepoDeprecated**](OrganizationApi.md#createOrgRepoDeprecated) | **POST** /org/{org}/repos | Create a repository in an organization
+[**deleteOrgSecret**](OrganizationApi.md#deleteOrgSecret) | **DELETE** /orgs/{org}/actions/secrets/{secretname} | Delete a secret in an organization
 [**orgAddTeamMember**](OrganizationApi.md#orgAddTeamMember) | **PUT** /teams/{id}/members/{username} | Add a team member
 [**orgAddTeamRepository**](OrganizationApi.md#orgAddTeamRepository) | **PUT** /teams/{id}/repos/{org}/{repo} | Add a repository to a team
 [**orgConcealMember**](OrganizationApi.md#orgConcealMember) | **DELETE** /orgs/{org}/public_members/{username} | Conceal a user&#39;s membership
@@ -14,6 +15,7 @@ Method | HTTP request | Description
 [**orgCreateLabel**](OrganizationApi.md#orgCreateLabel) | **POST** /orgs/{org}/labels | Create a label for an organization
 [**orgCreateTeam**](OrganizationApi.md#orgCreateTeam) | **POST** /orgs/{org}/teams | Create a team
 [**orgDelete**](OrganizationApi.md#orgDelete) | **DELETE** /orgs/{org} | Delete an organization
+[**orgDeleteAvatar**](OrganizationApi.md#orgDeleteAvatar) | **DELETE** /orgs/{org}/avatar | Delete Avatar
 [**orgDeleteHook**](OrganizationApi.md#orgDeleteHook) | **DELETE** /orgs/{org}/hooks/{id} | Delete a hook
 [**orgDeleteLabel**](OrganizationApi.md#orgDeleteLabel) | **DELETE** /orgs/{org}/labels/{id} | Delete a label
 [**orgDeleteMember**](OrganizationApi.md#orgDeleteMember) | **DELETE** /orgs/{org}/members/{username} | Remove a member from an organization
@@ -30,12 +32,15 @@ Method | HTTP request | Description
 [**orgGetUserPermissions**](OrganizationApi.md#orgGetUserPermissions) | **GET** /users/{username}/orgs/{org}/permissions | Get user permissions in organization
 [**orgIsMember**](OrganizationApi.md#orgIsMember) | **GET** /orgs/{org}/members/{username} | Check if a user is a member of an organization
 [**orgIsPublicMember**](OrganizationApi.md#orgIsPublicMember) | **GET** /orgs/{org}/public_members/{username} | Check if a user is a public member of an organization
+[**orgListActionsSecrets**](OrganizationApi.md#orgListActionsSecrets) | **GET** /orgs/{org}/actions/secrets | List an organization&#39;s actions secrets
+[**orgListActivityFeeds**](OrganizationApi.md#orgListActivityFeeds) | **GET** /orgs/{org}/activities/feeds | List an organization&#39;s activity feeds
 [**orgListCurrentUserOrgs**](OrganizationApi.md#orgListCurrentUserOrgs) | **GET** /user/orgs | List the current user&#39;s organizations
 [**orgListHooks**](OrganizationApi.md#orgListHooks) | **GET** /orgs/{org}/hooks | List an organization&#39;s webhooks
 [**orgListLabels**](OrganizationApi.md#orgListLabels) | **GET** /orgs/{org}/labels | List an organization&#39;s labels
 [**orgListMembers**](OrganizationApi.md#orgListMembers) | **GET** /orgs/{org}/members | List an organization&#39;s members
 [**orgListPublicMembers**](OrganizationApi.md#orgListPublicMembers) | **GET** /orgs/{org}/public_members | List an organization&#39;s public members
 [**orgListRepos**](OrganizationApi.md#orgListRepos) | **GET** /orgs/{org}/repos | List an organization&#39;s repos
+[**orgListTeamActivityFeeds**](OrganizationApi.md#orgListTeamActivityFeeds) | **GET** /teams/{id}/activities/feeds | List a team&#39;s activity feeds
 [**orgListTeamMember**](OrganizationApi.md#orgListTeamMember) | **GET** /teams/{id}/members/{username} | List a particular member of team
 [**orgListTeamMembers**](OrganizationApi.md#orgListTeamMembers) | **GET** /teams/{id}/members | List a team&#39;s members
 [**orgListTeamRepo**](OrganizationApi.md#orgListTeamRepo) | **GET** /teams/{id}/repos/{org}/{repo} | List a particular repo of team
@@ -45,7 +50,9 @@ Method | HTTP request | Description
 [**orgPublicizeMember**](OrganizationApi.md#orgPublicizeMember) | **PUT** /orgs/{org}/public_members/{username} | Publicize a user&#39;s membership
 [**orgRemoveTeamMember**](OrganizationApi.md#orgRemoveTeamMember) | **DELETE** /teams/{id}/members/{username} | Remove a team member
 [**orgRemoveTeamRepository**](OrganizationApi.md#orgRemoveTeamRepository) | **DELETE** /teams/{id}/repos/{org}/{repo} | Remove a repository from a team
+[**orgUpdateAvatar**](OrganizationApi.md#orgUpdateAvatar) | **POST** /orgs/{org}/avatar | Update Avatar
 [**teamSearch**](OrganizationApi.md#teamSearch) | **GET** /orgs/{org}/teams/search | Search for teams within an organization
+[**updateOrgSecret**](OrganizationApi.md#updateOrgSecret) | **PUT** /orgs/{org}/actions/secrets/{secretname} | Create or Update a secret value in an organization
 
 
 <a name="createOrgRepo"></a>
@@ -218,6 +225,95 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Repository**](Repository.md)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="deleteOrgSecret"></a>
+# **deleteOrgSecret**
+> deleteOrgSecret(org, secretname)
+
+Delete a secret in an organization
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.OrganizationApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+OrganizationApi apiInstance = new OrganizationApi();
+String org = "org_example"; // String | name of organization
+String secretname = "secretname_example"; // String | name of the secret
+try {
+    apiInstance.deleteOrgSecret(org, secretname);
+} catch (ApiException e) {
+    System.err.println("Exception when calling OrganizationApi#deleteOrgSecret");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **org** | **String**| name of organization |
+ **secretname** | **String**| name of the secret |
+
+### Return type
+
+null (empty response body)
 
 ### Authorization
 
@@ -928,6 +1024,93 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **org** | **String**| organization that is to be deleted |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain
+ - **Accept**: application/json
+
+<a name="orgDeleteAvatar"></a>
+# **orgDeleteAvatar**
+> orgDeleteAvatar(org)
+
+Delete Avatar
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.OrganizationApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+OrganizationApi apiInstance = new OrganizationApi();
+String org = "org_example"; // String | name of the organization
+try {
+    apiInstance.orgDeleteAvatar(org);
+} catch (ApiException e) {
+    System.err.println("Exception when calling OrganizationApi#orgDeleteAvatar");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **org** | **String**| name of the organization |
 
 ### Return type
 
@@ -2374,6 +2557,192 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain
  - **Accept**: application/json, text/html
 
+<a name="orgListActionsSecrets"></a>
+# **orgListActionsSecrets**
+> List&lt;Secret&gt; orgListActionsSecrets(org, page, limit)
+
+List an organization&#39;s actions secrets
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.OrganizationApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+OrganizationApi apiInstance = new OrganizationApi();
+String org = "org_example"; // String | name of the organization
+Integer page = 56; // Integer | page number of results to return (1-based)
+Integer limit = 56; // Integer | page size of results
+try {
+    List<Secret> result = apiInstance.orgListActionsSecrets(org, page, limit);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling OrganizationApi#orgListActionsSecrets");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **org** | **String**| name of the organization |
+ **page** | **Integer**| page number of results to return (1-based) | [optional]
+ **limit** | **Integer**| page size of results | [optional]
+
+### Return type
+
+[**List&lt;Secret&gt;**](Secret.md)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain
+ - **Accept**: application/json
+
+<a name="orgListActivityFeeds"></a>
+# **orgListActivityFeeds**
+> List&lt;Activity&gt; orgListActivityFeeds(org, date, page, limit)
+
+List an organization&#39;s activity feeds
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.OrganizationApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+OrganizationApi apiInstance = new OrganizationApi();
+String org = "org_example"; // String | name of the org
+LocalDate date = LocalDate.now(); // LocalDate | the date of the activities to be found
+Integer page = 56; // Integer | page number of results to return (1-based)
+Integer limit = 56; // Integer | page size of results
+try {
+    List<Activity> result = apiInstance.orgListActivityFeeds(org, date, page, limit);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling OrganizationApi#orgListActivityFeeds");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **org** | **String**| name of the org |
+ **date** | **LocalDate**| the date of the activities to be found | [optional]
+ **page** | **Integer**| page number of results to return (1-based) | [optional]
+ **limit** | **Integer**| page size of results | [optional]
+
+### Return type
+
+[**List&lt;Activity&gt;**](Activity.md)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain
+ - **Accept**: application/json
+
 <a name="orgListCurrentUserOrgs"></a>
 # **orgListCurrentUserOrgs**
 > List&lt;Organization&gt; orgListCurrentUserOrgs(page, limit)
@@ -2914,6 +3283,100 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**List&lt;Repository&gt;**](Repository.md)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain
+ - **Accept**: application/json
+
+<a name="orgListTeamActivityFeeds"></a>
+# **orgListTeamActivityFeeds**
+> List&lt;Activity&gt; orgListTeamActivityFeeds(id, date, page, limit)
+
+List a team&#39;s activity feeds
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.OrganizationApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+OrganizationApi apiInstance = new OrganizationApi();
+Long id = 789L; // Long | id of the team
+LocalDate date = LocalDate.now(); // LocalDate | the date of the activities to be found
+Integer page = 56; // Integer | page number of results to return (1-based)
+Integer limit = 56; // Integer | page size of results
+try {
+    List<Activity> result = apiInstance.orgListTeamActivityFeeds(id, date, page, limit);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling OrganizationApi#orgListTeamActivityFeeds");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **Long**| id of the team |
+ **date** | **LocalDate**| the date of the activities to be found | [optional]
+ **page** | **Integer**| page number of results to return (1-based) | [optional]
+ **limit** | **Integer**| page size of results | [optional]
+
+### Return type
+
+[**List&lt;Activity&gt;**](Activity.md)
 
 ### Authorization
 
@@ -3745,6 +4208,95 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain
  - **Accept**: application/json
 
+<a name="orgUpdateAvatar"></a>
+# **orgUpdateAvatar**
+> orgUpdateAvatar(org, body)
+
+Update Avatar
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.OrganizationApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+OrganizationApi apiInstance = new OrganizationApi();
+String org = "org_example"; // String | name of the organization
+UpdateUserAvatarOption body = new UpdateUserAvatarOption(); // UpdateUserAvatarOption | 
+try {
+    apiInstance.orgUpdateAvatar(org, body);
+} catch (ApiException e) {
+    System.err.println("Exception when calling OrganizationApi#orgUpdateAvatar");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **org** | **String**| name of the organization |
+ **body** | [**UpdateUserAvatarOption**](UpdateUserAvatarOption.md)|  | [optional]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain
+ - **Accept**: application/json
+
 <a name="teamSearch"></a>
 # **teamSearch**
 > InlineResponse200 teamSearch(org, q, includeDesc, page, limit)
@@ -3839,5 +4391,96 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/plain
+ - **Accept**: application/json
+
+<a name="updateOrgSecret"></a>
+# **updateOrgSecret**
+> updateOrgSecret(org, secretname, body)
+
+Create or Update a secret value in an organization
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.OrganizationApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+OrganizationApi apiInstance = new OrganizationApi();
+String org = "org_example"; // String | name of organization
+String secretname = "secretname_example"; // String | name of the secret
+CreateOrUpdateSecretOption body = new CreateOrUpdateSecretOption(); // CreateOrUpdateSecretOption | 
+try {
+    apiInstance.updateOrgSecret(org, secretname, body);
+} catch (ApiException e) {
+    System.err.println("Exception when calling OrganizationApi#updateOrgSecret");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **org** | **String**| name of organization |
+ **secretname** | **String**| name of the secret |
+ **body** | [**CreateOrUpdateSecretOption**](CreateOrUpdateSecretOption.md)|  | [optional]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 

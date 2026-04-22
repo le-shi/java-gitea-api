@@ -5,11 +5,14 @@ All URIs are relative to *http://localhost/api/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createCurrentUserRepo**](UserApi.md#createCurrentUserRepo) | **POST** /user/repos | Create a repository
+[**deleteUserSecret**](UserApi.md#deleteUserSecret) | **DELETE** /user/actions/secrets/{secretname} | Delete a secret in a user scope
 [**getUserSettings**](UserApi.md#getUserSettings) | **GET** /user/settings | Get user settings
 [**getVerificationToken**](UserApi.md#getVerificationToken) | **GET** /user/gpg_key_token | Get a Token to verify
+[**updateUserSecret**](UserApi.md#updateUserSecret) | **PUT** /user/actions/secrets/{secretname} | Create or Update a secret value in a user scope
 [**updateUserSettings**](UserApi.md#updateUserSettings) | **PATCH** /user/settings | Update user settings
 [**userAddEmail**](UserApi.md#userAddEmail) | **POST** /user/emails | Add email addresses
 [**userCheckFollowing**](UserApi.md#userCheckFollowing) | **GET** /users/{username}/following/{target} | Check if one user is following another user
+[**userCreateHook**](UserApi.md#userCreateHook) | **POST** /user/hooks | Create a hook
 [**userCreateOAuth2Application**](UserApi.md#userCreateOAuth2Application) | **POST** /user/applications/oauth2 | creates a new OAuth2 application
 [**userCreateToken**](UserApi.md#userCreateToken) | **POST** /users/{username}/tokens | Create an access token
 [**userCurrentCheckFollowing**](UserApi.md#userCurrentCheckFollowing) | **GET** /user/following/{username} | Check whether a user is followed by the authenticated user
@@ -33,25 +36,32 @@ Method | HTTP request | Description
 [**userCurrentPutStar**](UserApi.md#userCurrentPutStar) | **PUT** /user/starred/{owner}/{repo} | Star the given repo
 [**userCurrentTrackedTimes**](UserApi.md#userCurrentTrackedTimes) | **GET** /user/times | List the current user&#39;s tracked times
 [**userDeleteAccessToken**](UserApi.md#userDeleteAccessToken) | **DELETE** /users/{username}/tokens/{token} | delete an access token
+[**userDeleteAvatar**](UserApi.md#userDeleteAvatar) | **DELETE** /user/avatar | Delete Avatar
 [**userDeleteEmail**](UserApi.md#userDeleteEmail) | **DELETE** /user/emails | Delete email addresses
+[**userDeleteHook**](UserApi.md#userDeleteHook) | **DELETE** /user/hooks/{id} | Delete a hook
 [**userDeleteOAuth2Application**](UserApi.md#userDeleteOAuth2Application) | **DELETE** /user/applications/oauth2/{id} | delete an OAuth2 Application
+[**userEditHook**](UserApi.md#userEditHook) | **PATCH** /user/hooks/{id} | Update a hook
 [**userGet**](UserApi.md#userGet) | **GET** /users/{username} | Get a user
 [**userGetCurrent**](UserApi.md#userGetCurrent) | **GET** /user | Get the authenticated user
 [**userGetHeatmapData**](UserApi.md#userGetHeatmapData) | **GET** /users/{username}/heatmap | Get a user&#39;s heatmap
+[**userGetHook**](UserApi.md#userGetHook) | **GET** /user/hooks/{id} | Get a hook
 [**userGetOAuth2Application**](UserApi.md#userGetOAuth2Application) | **GET** /user/applications/oauth2/{id} | get an OAuth2 Application
 [**userGetOauth2Application**](UserApi.md#userGetOauth2Application) | **GET** /user/applications/oauth2 | List the authenticated user&#39;s oauth2 applications
 [**userGetStopWatches**](UserApi.md#userGetStopWatches) | **GET** /user/stopwatches | Get list of all existing stopwatches
 [**userGetTokens**](UserApi.md#userGetTokens) | **GET** /users/{username}/tokens | List the authenticated user&#39;s access tokens
+[**userListActivityFeeds**](UserApi.md#userListActivityFeeds) | **GET** /users/{username}/activities/feeds | List a user&#39;s activity feeds
 [**userListEmails**](UserApi.md#userListEmails) | **GET** /user/emails | List the authenticated user&#39;s email addresses
 [**userListFollowers**](UserApi.md#userListFollowers) | **GET** /users/{username}/followers | List the given user&#39;s followers
 [**userListFollowing**](UserApi.md#userListFollowing) | **GET** /users/{username}/following | List the users that the given user is following
 [**userListGPGKeys**](UserApi.md#userListGPGKeys) | **GET** /users/{username}/gpg_keys | List the given user&#39;s GPG keys
+[**userListHooks**](UserApi.md#userListHooks) | **GET** /user/hooks | List the authenticated user&#39;s webhooks
 [**userListKeys**](UserApi.md#userListKeys) | **GET** /users/{username}/keys | List the given user&#39;s public keys
 [**userListRepos**](UserApi.md#userListRepos) | **GET** /users/{username}/repos | List the repos owned by the given user
 [**userListStarred**](UserApi.md#userListStarred) | **GET** /users/{username}/starred | The repos that the given user has starred
 [**userListSubscriptions**](UserApi.md#userListSubscriptions) | **GET** /users/{username}/subscriptions | List the repositories watched by a user
 [**userListTeams**](UserApi.md#userListTeams) | **GET** /user/teams | List all the teams a user belongs to
 [**userSearch**](UserApi.md#userSearch) | **GET** /users/search | Search for users
+[**userUpdateAvatar**](UserApi.md#userUpdateAvatar) | **POST** /user/avatar | Update Avatar
 [**userUpdateOAuth2Application**](UserApi.md#userUpdateOAuth2Application) | **PATCH** /user/applications/oauth2/{id} | update an OAuth2 Application, this includes regenerating the client secret
 [**userVerifyGPGKey**](UserApi.md#userVerifyGPGKey) | **POST** /user/gpg_key_verify | Verify a GPG key
 
@@ -134,6 +144,93 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Repository**](Repository.md)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="deleteUserSecret"></a>
+# **deleteUserSecret**
+> deleteUserSecret(secretname)
+
+Delete a secret in a user scope
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.UserApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+UserApi apiInstance = new UserApi();
+String secretname = "secretname_example"; // String | name of the secret
+try {
+    apiInstance.deleteUserSecret(secretname);
+} catch (ApiException e) {
+    System.err.println("Exception when calling UserApi#deleteUserSecret");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **secretname** | **String**| name of the secret |
+
+### Return type
+
+null (empty response body)
 
 ### Authorization
 
@@ -311,6 +408,95 @@ This endpoint does not need any parameter.
 
  - **Content-Type**: application/json, text/plain
  - **Accept**: text/plain
+
+<a name="updateUserSecret"></a>
+# **updateUserSecret**
+> updateUserSecret(secretname, body)
+
+Create or Update a secret value in a user scope
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.UserApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+UserApi apiInstance = new UserApi();
+String secretname = "secretname_example"; // String | name of the secret
+CreateOrUpdateSecretOption body = new CreateOrUpdateSecretOption(); // CreateOrUpdateSecretOption | 
+try {
+    apiInstance.updateUserSecret(secretname, body);
+} catch (ApiException e) {
+    System.err.println("Exception when calling UserApi#updateUserSecret");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **secretname** | **String**| name of the secret |
+ **body** | [**CreateOrUpdateSecretOption**](CreateOrUpdateSecretOption.md)|  | [optional]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="updateUserSettings"></a>
 # **updateUserSettings**
@@ -577,6 +763,94 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain
  - **Accept**: application/json, text/html
 
+<a name="userCreateHook"></a>
+# **userCreateHook**
+> Hook userCreateHook(body)
+
+Create a hook
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.UserApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+UserApi apiInstance = new UserApi();
+CreateHookOption body = new CreateHookOption(); // CreateHookOption | 
+try {
+    Hook result = apiInstance.userCreateHook(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling UserApi#userCreateHook");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**CreateHookOption**](CreateHookOption.md)|  |
+
+### Return type
+
+[**Hook**](Hook.md)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="userCreateOAuth2Application"></a>
 # **userCreateOAuth2Application**
 > OAuth2Application userCreateOAuth2Application(body)
@@ -667,7 +941,7 @@ Name | Type | Description  | Notes
 
 <a name="userCreateToken"></a>
 # **userCreateToken**
-> AccessToken userCreateToken(username, userCreateToken)
+> AccessToken userCreateToken(username, body)
 
 Create an access token
 
@@ -725,9 +999,9 @@ Token.setApiKey("YOUR API KEY");
 
 UserApi apiInstance = new UserApi();
 String username = "username_example"; // String | username of user
-CreateAccessTokenOption userCreateToken = new CreateAccessTokenOption(); // CreateAccessTokenOption | 
+CreateAccessTokenOption body = new CreateAccessTokenOption(); // CreateAccessTokenOption | 
 try {
-    AccessToken result = apiInstance.userCreateToken(username, userCreateToken);
+    AccessToken result = apiInstance.userCreateToken(username, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling UserApi#userCreateToken");
@@ -740,7 +1014,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **username** | **String**| username of user |
- **userCreateToken** | [**CreateAccessTokenOption**](CreateAccessTokenOption.md)|  | [optional]
+ **body** | [**CreateAccessTokenOption**](CreateAccessTokenOption.md)|  | [optional]
 
 ### Return type
 
@@ -2624,6 +2898,89 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain
  - **Accept**: application/json
 
+<a name="userDeleteAvatar"></a>
+# **userDeleteAvatar**
+> userDeleteAvatar()
+
+Delete Avatar
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.UserApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+UserApi apiInstance = new UserApi();
+try {
+    apiInstance.userDeleteAvatar();
+} catch (ApiException e) {
+    System.err.println("Exception when calling UserApi#userDeleteAvatar");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain
+ - **Accept**: application/json
+
 <a name="userDeleteEmail"></a>
 # **userDeleteEmail**
 > userDeleteEmail(body)
@@ -2697,6 +3054,93 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**DeleteEmailOption**](DeleteEmailOption.md)|  | [optional]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain
+ - **Accept**: application/json
+
+<a name="userDeleteHook"></a>
+# **userDeleteHook**
+> userDeleteHook(id)
+
+Delete a hook
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.UserApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+UserApi apiInstance = new UserApi();
+Long id = 789L; // Long | id of the hook to delete
+try {
+    apiInstance.userDeleteHook(id);
+} catch (ApiException e) {
+    System.err.println("Exception when calling UserApi#userDeleteHook");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **Long**| id of the hook to delete |
 
 ### Return type
 
@@ -2796,6 +3240,96 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/plain
+ - **Accept**: application/json
+
+<a name="userEditHook"></a>
+# **userEditHook**
+> Hook userEditHook(id, body)
+
+Update a hook
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.UserApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+UserApi apiInstance = new UserApi();
+Long id = 789L; // Long | id of the hook to update
+EditHookOption body = new EditHookOption(); // EditHookOption | 
+try {
+    Hook result = apiInstance.userEditHook(id, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling UserApi#userEditHook");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **Long**| id of the hook to update |
+ **body** | [**EditHookOption**](EditHookOption.md)|  | [optional]
+
+### Return type
+
+[**Hook**](Hook.md)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="userGet"></a>
@@ -3048,6 +3582,94 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**List&lt;UserHeatmapData&gt;**](UserHeatmapData.md)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain
+ - **Accept**: application/json
+
+<a name="userGetHook"></a>
+# **userGetHook**
+> Hook userGetHook(id)
+
+Get a hook
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.UserApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+UserApi apiInstance = new UserApi();
+Long id = 789L; // Long | id of the hook to get
+try {
+    Hook result = apiInstance.userGetHook(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling UserApi#userGetHook");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **Long**| id of the hook to get |
+
+### Return type
+
+[**Hook**](Hook.md)
 
 ### Authorization
 
@@ -3418,6 +4040,102 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain
  - **Accept**: application/json
 
+<a name="userListActivityFeeds"></a>
+# **userListActivityFeeds**
+> List&lt;Activity&gt; userListActivityFeeds(username, onlyPerformedBy, date, page, limit)
+
+List a user&#39;s activity feeds
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.UserApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+UserApi apiInstance = new UserApi();
+String username = "username_example"; // String | username of user
+Boolean onlyPerformedBy = true; // Boolean | if true, only show actions performed by the requested user
+LocalDate date = LocalDate.now(); // LocalDate | the date of the activities to be found
+Integer page = 56; // Integer | page number of results to return (1-based)
+Integer limit = 56; // Integer | page size of results
+try {
+    List<Activity> result = apiInstance.userListActivityFeeds(username, onlyPerformedBy, date, page, limit);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling UserApi#userListActivityFeeds");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **username** | **String**| username of user |
+ **onlyPerformedBy** | **Boolean**| if true, only show actions performed by the requested user | [optional]
+ **date** | **LocalDate**| the date of the activities to be found | [optional]
+ **page** | **Integer**| page number of results to return (1-based) | [optional]
+ **limit** | **Integer**| page size of results | [optional]
+
+### Return type
+
+[**List&lt;Activity&gt;**](Activity.md)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain
+ - **Accept**: application/json
+
 <a name="userListEmails"></a>
 # **userListEmails**
 > List&lt;Email&gt; userListEmails()
@@ -3768,6 +4486,96 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**List&lt;GPGKey&gt;**](GPGKey.md)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain
+ - **Accept**: application/json
+
+<a name="userListHooks"></a>
+# **userListHooks**
+> List&lt;Hook&gt; userListHooks(page, limit)
+
+List the authenticated user&#39;s webhooks
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.UserApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+UserApi apiInstance = new UserApi();
+Integer page = 56; // Integer | page number of results to return (1-based)
+Integer limit = 56; // Integer | page size of results
+try {
+    List<Hook> result = apiInstance.userListHooks(page, limit);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling UserApi#userListHooks");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **Integer**| page number of results to return (1-based) | [optional]
+ **limit** | **Integer**| page size of results | [optional]
+
+### Return type
+
+[**List&lt;Hook&gt;**](Hook.md)
 
 ### Authorization
 
@@ -4322,6 +5130,93 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**InlineResponse2001**](InlineResponse2001.md)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain
+ - **Accept**: application/json
+
+<a name="userUpdateAvatar"></a>
+# **userUpdateAvatar**
+> userUpdateAvatar(body)
+
+Update Avatar
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.UserApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+UserApi apiInstance = new UserApi();
+UpdateUserAvatarOption body = new UpdateUserAvatarOption(); // UpdateUserAvatarOption | 
+try {
+    apiInstance.userUpdateAvatar(body);
+} catch (ApiException e) {
+    System.err.println("Exception when calling UserApi#userUpdateAvatar");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**UpdateUserAvatarOption**](UpdateUserAvatarOption.md)|  | [optional]
+
+### Return type
+
+null (empty response body)
 
 ### Authorization
 

@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **tagName** | **String** |  |  [optional]
 **tarballUrl** | **String** |  |  [optional]
 **targetCommitish** | **String** |  |  [optional]
+**uploadUrl** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
 **zipballUrl** | **String** |  |  [optional]
 

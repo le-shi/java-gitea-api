@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **blockOnOfficialReviewRequests** | **Boolean** |  |  [optional]
 **blockOnOutdatedBranch** | **Boolean** |  |  [optional]
 **blockOnRejectedReviews** | **Boolean** |  |  [optional]
-**branchName** | **String** |  |  [optional]
+**branchName** | **String** | Deprecated: true |  [optional]
 **dismissStaleApprovals** | **Boolean** |  |  [optional]
 **enableApprovalsWhitelist** | **Boolean** |  |  [optional]
 **enableMergeWhitelist** | **Boolean** |  |  [optional]
@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **pushWhitelistUsernames** | **List&lt;String&gt;** |  |  [optional]
 **requireSignedCommits** | **Boolean** |  |  [optional]
 **requiredApprovals** | **Long** |  |  [optional]
+**ruleName** | **String** |  |  [optional]
 **statusCheckContexts** | **List&lt;String&gt;** |  |  [optional]
 **unprotectedFilePatterns** | **String** |  |  [optional]
 

@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **state** | **String** |  |  [optional]
 **submittedAt** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **team** | [**Team**](Team.md) |  |  [optional]
+**updatedAt** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **user** | [**User**](User.md) |  |  [optional]
 
 

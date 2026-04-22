@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**activitypubPerson**](ActivitypubApi.md#activitypubPerson) | **GET** /activitypub/user/{username} | Returns the Person actor for a user
-[**activitypubPersonInbox**](ActivitypubApi.md#activitypubPersonInbox) | **POST** /activitypub/user/{username}/inbox | Send to the inbox
+[**activitypubPerson**](ActivitypubApi.md#activitypubPerson) | **GET** /activitypub/user-id/{user-id} | Returns the Person actor for a user
+[**activitypubPersonInbox**](ActivitypubApi.md#activitypubPersonInbox) | **POST** /activitypub/user-id/{user-id}/inbox | Send to the inbox
 
 
 <a name="activitypubPerson"></a>
 # **activitypubPerson**
-> ActivityPub activitypubPerson(username)
+> ActivityPub activitypubPerson(userId)
 
 Returns the Person actor for a user
 
@@ -67,9 +67,9 @@ Token.setApiKey("YOUR API KEY");
 //Token.setApiKeyPrefix("Token");
 
 ActivitypubApi apiInstance = new ActivitypubApi();
-String username = "username_example"; // String | username of the user
+Integer userId = 56; // Integer | user ID of the user
 try {
-    ActivityPub result = apiInstance.activitypubPerson(username);
+    ActivityPub result = apiInstance.activitypubPerson(userId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ActivitypubApi#activitypubPerson");
@@ -81,7 +81,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **username** | **String**| username of the user |
+ **userId** | **Integer**| user ID of the user |
 
 ### Return type
 
@@ -98,7 +98,7 @@ Name | Type | Description  | Notes
 
 <a name="activitypubPersonInbox"></a>
 # **activitypubPersonInbox**
-> activitypubPersonInbox(username)
+> activitypubPersonInbox(userId)
 
 Send to the inbox
 
@@ -155,9 +155,9 @@ Token.setApiKey("YOUR API KEY");
 //Token.setApiKeyPrefix("Token");
 
 ActivitypubApi apiInstance = new ActivitypubApi();
-String username = "username_example"; // String | username of the user
+Integer userId = 56; // Integer | user ID of the user
 try {
-    apiInstance.activitypubPersonInbox(username);
+    apiInstance.activitypubPersonInbox(userId);
 } catch (ApiException e) {
     System.err.println("Exception when calling ActivitypubApi#activitypubPersonInbox");
     e.printStackTrace();
@@ -168,7 +168,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **username** | **String**| username of the user |
+ **userId** | **Integer**| user ID of the user |
 
 ### Return type
 

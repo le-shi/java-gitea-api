@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **remoteAddress** | **String** |  |  [optional]
 **remotePassword** | **String** |  |  [optional]
 **remoteUsername** | **String** |  |  [optional]
+**syncOnCommit** | **Boolean** |  |  [optional]
 
 
 

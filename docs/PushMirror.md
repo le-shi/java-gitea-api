@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **remoteAddress** | **String** |  |  [optional]
 **remoteName** | **String** |  |  [optional]
 **repoName** | **String** |  |  [optional]
+**syncOnCommit** | **Boolean** |  |  [optional]
 
 
 

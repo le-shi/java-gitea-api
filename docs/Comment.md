@@ -4,6 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**assets** | [**List&lt;Attachment&gt;**](Attachment.md) |  |  [optional]
 **body** | **String** |  |  [optional]
 **createdAt** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **htmlUrl** | **String** |  |  [optional]

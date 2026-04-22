@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **createdAt** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **creator** | [**User**](User.md) |  |  [optional]
+**htmlUrl** | **String** |  |  [optional]
 **id** | **Long** |  |  [optional]
 **name** | **String** |  |  [optional]
 **owner** | [**User**](User.md) |  |  [optional]

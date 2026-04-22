@@ -28,6 +28,8 @@ Name | Type | Description | Notes
 **milestone** | [**Milestone**](Milestone.md) |  |  [optional]
 **number** | **Long** |  |  [optional]
 **patchUrl** | **String** |  |  [optional]
+**pinOrder** | **Long** |  |  [optional]
+**requestedReviewers** | [**List&lt;User&gt;**](User.md) |  |  [optional]
 **state** | **String** |  |  [optional]
 **title** | **String** |  |  [optional]
 **updatedAt** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]

@@ -4,6 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**assets** | [**List&lt;Attachment&gt;**](Attachment.md) |  |  [optional]
 **assignee** | [**User**](User.md) |  |  [optional]
 **assignees** | [**List&lt;User&gt;**](User.md) |  |  [optional]
 **body** | **String** |  |  [optional]
@@ -19,6 +20,7 @@ Name | Type | Description | Notes
 **number** | **Long** |  |  [optional]
 **originalAuthor** | **String** |  |  [optional]
 **originalAuthorId** | **Long** |  |  [optional]
+**pinOrder** | **Long** |  |  [optional]
 **pullRequest** | [**PullRequestMeta**](PullRequestMeta.md) |  |  [optional]
 **ref** | **String** |  |  [optional]
 **repository** | [**RepositoryMeta**](RepositoryMeta.md) |  |  [optional]

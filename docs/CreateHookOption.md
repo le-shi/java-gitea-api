@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **active** | **Boolean** |  |  [optional]
+**authorizationHeader** | **String** |  |  [optional]
 **branchFilter** | **String** |  |  [optional]
 **config** | [**CreateHookOptionConfig**](CreateHookOptionConfig.md) |  | 
 **events** | **List&lt;String&gt;** |  |  [optional]

@@ -34,6 +34,10 @@ GIT | &quot;git&quot;
 GITHUB | &quot;github&quot;
 GITEA | &quot;gitea&quot;
 GITLAB | &quot;gitlab&quot;
+GOGS | &quot;gogs&quot;
+ONEDEV | &quot;onedev&quot;
+GITBUCKET | &quot;gitbucket&quot;
+CODEBASE | &quot;codebase&quot;
 
 
 
