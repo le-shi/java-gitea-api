@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   publish:
-    name: Publish to Sonatype Central
+    name: Build and publish to Sonatype Central
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -29,7 +29,7 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: GPG_PASSPHRASE
 
-      - name: Publish release artifacts
+      - name: Build and publish release artifacts
         run: mvn -B -Prelease clean deploy
         env:
           CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
