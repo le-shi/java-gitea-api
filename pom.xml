@@ -1,16 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.zeripath</groupId>
+    <groupId>io.github.le-shi</groupId>
     <artifactId>java-gitea-api</artifactId>
     <packaging>jar</packaging>
     <name>java-gitea-api</name>
     <version>1.21.1</version>
-    <url>https://github.com/zeripath/java-gitea-api</url>
+    <url>https://github.com/le-shi/java-gitea-api</url>
     <description>Swagger Java Client for Gitea</description>
     <scm>
-        <connection>scm:git:git@github.com:zeripath/java-gitea-api.git</connection>
-        <developerConnection>scm:git:git@github.com:zeripath/java-gitea-api.git</developerConnection>
-        <url>https://github.com/zeripath/java-gitea-api</url>
+        <connection>scm:git:https://github.com/le-shi/java-gitea-api.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/le-shi/java-gitea-api.git</developerConnection>
+        <url>https://github.com/le-shi/java-gitea-api</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -24,8 +24,10 @@
 
     <developers>
         <developer>
-            <name>Andrew Thornton</name>
-            <email>zeripath@gmail.com</email>
+            <id>le-shi</id>
+            <name>le-shi</name>
+            <email>13051960278@163.com</email>
+            <url>https://github.com/le-shi</url>
         </developer>
     </developers>
 
@@ -59,7 +61,7 @@
                     <configOptions>
                         <hideGenerationTimestamp>true</hideGenerationTimestamp>
                         <artifactId>java-gitea-api</artifactId>
-                        <groupId>com.github.zeripath</groupId>
+                        <groupId>io.github.le-shi</groupId>
                         <artifactVersion>${project.version}</artifactVersion>
                     </configOptions>
                 </configuration>
@@ -192,17 +194,20 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
-                <executions>
-                    <execution>
-                        <id>default-deploy</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <version>3.1.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.6.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                    <waitUntil>published</waitUntil>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -237,41 +242,13 @@
 
     <profiles>
         <profile>
-            <id>sign-artifacts</id>
+            <id>release</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!-- GPG Signature on release -->
-        <profile>
-            <id>release-sign-artifacts</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>3.2.4</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -332,16 +309,6 @@
             <version>${javax-annotation.version}</version>
         </dependency>
     </dependencies>
-<!--    <distributionManagement>-->
-<!--        <snapshotRepository>-->
-<!--            <id>ossrh</id>-->
-<!--            <url>https://oss.sonatype.org/content/repositories/snapshots</url>-->
-<!--        </snapshotRepository>-->
-<!--        <repository>-->
-<!--            <id>ossrh</id>-->
-<!--            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
-<!--        </repository>-->
-<!--    </distributionManagement>-->
     <properties>
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
