@@ -109,14 +109,21 @@ jobs:
           git checkout -B "$BRANCH" origin/master
 
           make -C upstream-gitea generate-swagger
-          cp upstream-gitea/templates/swagger/v1_json.tmpl swagger.v1.json
 
           VERSION="$VERSION" python - <<'PY'
+          import json
           import os
           import pathlib
           import re
 
           version = os.environ['VERSION']
+
+          swagger_template_path = pathlib.Path('upstream-gitea/templates/swagger/v1_json.tmpl')
+          swagger = swagger_template_path.read_text(encoding='utf-8')
+          swagger = swagger.replace('{{.SwaggerAppVer}}', version)
+          swagger = swagger.replace('{{.SwaggerAppSubUrl}}', '')
+          json.loads(swagger)
+          pathlib.Path('swagger.v1.json').write_text(swagger, encoding='utf-8')
 
           pom_path = pathlib.Path('pom.xml')
           pom = pom_path.read_text(encoding='utf-8')
@@ -131,6 +138,19 @@ jobs:
           readme = re.sub(r'(`target/java-gitea-api-)([^`]+)(\.jar`)', rf'\g<1>{version}\g<3>', readme, count=1)
           readme_path.write_text(readme, encoding='utf-8')
           PY
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path('swagger.v1.json').read_text(encoding='utf-8'))
+          print(data['info']['version'])
+          print(data['basePath'])
+          PY
+
+          grep -q '"version": "'$VERSION'"' swagger.v1.json
+          grep -q '"basePath": "/api/v1"' swagger.v1.json
+
 
           git add swagger.v1.json pom.xml README.md
           if git diff --cached --quiet; then
