@@ -67,11 +67,35 @@ jobs:
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Clone upstream source
+        if: steps.branch.outputs.exists == 'false'
+        run: |
+          rm -rf upstream-gitea
+          git clone --depth 1 --branch '${{ steps.input.outputs.tag }}' https://github.com/go-gitea/gitea upstream-gitea
+
       - name: Set up Go for upstream swagger generation
         if: steps.branch.outputs.exists == 'false'
         uses: actions/setup-go@v5
         with:
-          go-version: '1.22'
+          go-version-file: upstream-gitea/go.mod
+          check-latest: true
+
+      - name: Set up Node for upstream frontend dependencies
+        if: steps.branch.outputs.exists == 'false'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Set up pnpm for upstream frontend dependencies
+        if: steps.branch.outputs.exists == 'false'
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Install upstream generate-swagger prerequisites
+        if: steps.branch.outputs.exists == 'false'
+        run: make -C upstream-gitea deps-frontend deps-backend
 
       - name: Create release branch from upstream tag
         if: steps.branch.outputs.exists == 'false'
@@ -84,10 +108,8 @@ jobs:
           git pull --ff-only origin master
           git checkout -B "$BRANCH" origin/master
 
-          rm -rf upstream-gitea
-          git clone --depth 1 --branch "$TAG" https://github.com/go-gitea/gitea upstream-gitea
           make -C upstream-gitea generate-swagger
-          cp upstream-gitea/swagger.v1.json swagger.v1.json
+          cp upstream-gitea/templates/swagger/v1_json.tmpl swagger.v1.json
 
           VERSION="$VERSION" python - <<'PY'
           import os
