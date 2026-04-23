@@ -1,0 +1,131 @@
+name: Create Release Branch From Upstream Tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: '上游 Gitea 稳定 Tag，例如 v1.26.0'
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: upstream-release-${{ github.event.inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  create-release-branch:
+    name: Create release branch and generate swagger
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Validate requested upstream tag
+        id: input
+        run: |
+          TAG='${{ github.event.inputs.tag }}'
+          if [ -z "$TAG" ]; then
+            echo "tag is required"
+            exit 1
+          fi
+          case "$TAG" in
+            v1.*) ;;
+            *) echo "tag must match v1.*"; exit 1 ;;
+          esac
+          case "$TAG" in
+            *-rc*|*-dev) echo "pre-release tag is not supported"; exit 1 ;;
+          esac
+          VERSION=${TAG#v}
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Skip existing release branch
+        id: branch
+        run: |
+          VERSION='${{ steps.input.outputs.version }}'
+          if git ls-remote --exit-code --heads origin "release/$VERSION" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "release/$VERSION already exists"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Go for upstream swagger generation
+        if: steps.branch.outputs.exists == 'false'
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Create release branch from upstream tag
+        if: steps.branch.outputs.exists == 'false'
+        run: |
+          TAG='${{ steps.input.outputs.tag }}'
+          VERSION='${{ steps.input.outputs.version }}'
+          BRANCH="release/$VERSION"
+
+          git checkout master
+          git pull --ff-only origin master
+          git checkout -B "$BRANCH" origin/master
+
+          rm -rf upstream-gitea
+          git clone --depth 1 --branch "$TAG" https://github.com/go-gitea/gitea upstream-gitea
+          make -C upstream-gitea generate-swagger
+          cp upstream-gitea/swagger.v1.json swagger.v1.json
+
+          VERSION="$VERSION" python - <<'PY'
+          import os
+          import pathlib
+          import re
+
+          version = os.environ['VERSION']
+
+          pom_path = pathlib.Path('pom.xml')
+          pom = pom_path.read_text(encoding='utf-8')
+          pom = re.sub(r'(<version>)([^<]+)(</version>)', rf'\g<1>{version}\g<3>', pom, count=1)
+          pom = re.sub(r'(<artifactVersion>)([^<]+)(</artifactVersion>)', rf'\g<1>{version}\g<3>', pom, count=1)
+          pom_path.write_text(pom, encoding='utf-8')
+
+          readme_path = pathlib.Path('README.md')
+          readme = readme_path.read_text(encoding='utf-8')
+          readme = re.sub(r'(<version>)([^<]+)(</version>)', rf'\g<1>{version}\g<3>', readme, count=1)
+          readme = re.sub(r'(implementation "io\.github\.le-shi:java-gitea-api:)([^"]+)(")', rf'\g<1>{version}\g<3>', readme, count=1)
+          readme = re.sub(r'(`target/java-gitea-api-)([^`]+)(\.jar`)', rf'\g<1>{version}\g<3>', readme, count=1)
+          readme_path.write_text(readme, encoding='utf-8')
+          PY
+
+          git add swagger.v1.json pom.xml README.md
+          if git diff --cached --quiet; then
+            echo "No changes for $BRANCH, push branch from master"
+          else
+            git commit -m "根据上游 Gitea Tag $TAG 初始化 $BRANCH"
+          fi
+          git push -u origin "$BRANCH"
+
+      - name: Restore master checkout
+        if: always()
+        run: |
+          git checkout master
+          rm -rf upstream-gitea
+          git clean -fd
+          git reset --hard
+          git pull --ff-only origin master
+
+      - name: Report skipped existing release branch
+        if: steps.branch.outputs.exists == 'true'
+        run: |
+          echo "release/${{ steps.input.outputs.version }} already exists, skip generation"
+
+      - name: Report created release branch
+        if: steps.branch.outputs.exists == 'false'
+        run: |
+          echo "Prepared release/${{ steps.input.outputs.version }} from ${{ steps.input.outputs.tag }}"
