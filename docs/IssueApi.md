@@ -1,6 +1,6 @@
 # IssueApi
 
-All URIs are relative to *http://localhost/api/v1*
+All URIs are relative to *https://localhost/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -56,6 +56,7 @@ Method | HTTP request | Description
 [**issueListIssueDependencies**](IssueApi.md#issueListIssueDependencies) | **GET** /repos/{owner}/{repo}/issues/{index}/dependencies | List an issue&#39;s dependencies, i.e all issues that block this issue.
 [**issueListIssues**](IssueApi.md#issueListIssues) | **GET** /repos/{owner}/{repo}/issues | List a repository&#39;s issues
 [**issueListLabels**](IssueApi.md#issueListLabels) | **GET** /repos/{owner}/{repo}/labels | Get all of a repository&#39;s labels
+[**issueLockIssue**](IssueApi.md#issueLockIssue) | **PUT** /repos/{owner}/{repo}/issues/{index}/lock | Lock an issue
 [**issuePostCommentReaction**](IssueApi.md#issuePostCommentReaction) | **POST** /repos/{owner}/{repo}/issues/comments/{id}/reactions | Add a reaction to a comment of an issue
 [**issuePostIssueReaction**](IssueApi.md#issuePostIssueReaction) | **POST** /repos/{owner}/{repo}/issues/{index}/reactions | Add a reaction to an issue
 [**issueRemoveIssueBlocking**](IssueApi.md#issueRemoveIssueBlocking) | **DELETE** /repos/{owner}/{repo}/issues/{index}/blocks | Unblock the issue given in the body by the issue in path
@@ -68,6 +69,7 @@ Method | HTTP request | Description
 [**issueStopStopWatch**](IssueApi.md#issueStopStopWatch) | **POST** /repos/{owner}/{repo}/issues/{index}/stopwatch/stop | Stop an issue&#39;s existing stopwatch.
 [**issueSubscriptions**](IssueApi.md#issueSubscriptions) | **GET** /repos/{owner}/{repo}/issues/{index}/subscriptions | Get users who subscribed on an issue.
 [**issueTrackedTimes**](IssueApi.md#issueTrackedTimes) | **GET** /repos/{owner}/{repo}/issues/{index}/times | List an issue&#39;s tracked times
+[**issueUnlockIssue**](IssueApi.md#issueUnlockIssue) | **DELETE** /repos/{owner}/{repo}/issues/{index}/lock | Unlock an issue
 [**moveIssuePin**](IssueApi.md#moveIssuePin) | **PATCH** /repos/{owner}/{repo}/issues/{index}/pin/{position} | Moves the Pin to the given Position
 [**pinIssue**](IssueApi.md#pinIssue) | **POST** /repos/{owner}/{repo}/issues/{index}/pin | Pin an Issue
 [**unpinIssue**](IssueApi.md#unpinIssue) | **DELETE** /repos/{owner}/{repo}/issues/{index}/pin | Unpin an Issue
@@ -229,7 +231,7 @@ IssueApi apiInstance = new IssueApi();
 String owner = "owner_example"; // String | owner of the repo
 String repo = "repo_example"; // String | name of the repo
 Long index = 789L; // Long | index of the issue
-String user = "user_example"; // String | user to subscribe
+String user = "user_example"; // String | username of the user to subscribe the issue to
 try {
     apiInstance.issueAddSubscription(owner, repo, index, user);
 } catch (ApiException e) {
@@ -245,7 +247,7 @@ Name | Type | Description  | Notes
  **owner** | **String**| owner of the repo |
  **repo** | **String**| name of the repo |
  **index** | **Long**| index of the issue |
- **user** | **String**| user to subscribe |
+ **user** | **String**| username of the user to subscribe the issue to |
 
 ### Return type
 
@@ -534,7 +536,7 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueCreateComment"></a>
@@ -910,7 +912,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueCreateIssueCommentAttachment"></a>
@@ -1100,7 +1102,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueCreateLabel"></a>
@@ -1375,8 +1377,8 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
- - **Accept**: application/json, text/html
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="issueDeleteComment"></a>
 # **issueDeleteComment**
@@ -1466,8 +1468,8 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
- - **Accept**: application/json, text/html
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="issueDeleteCommentDeprecated"></a>
 # **issueDeleteCommentDeprecated**
@@ -1559,8 +1561,8 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
- - **Accept**: application/json, text/html
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="issueDeleteCommentReaction"></a>
 # **issueDeleteCommentReaction**
@@ -1745,7 +1747,7 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueDeleteIssueCommentAttachment"></a>
@@ -1838,7 +1840,7 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueDeleteIssueReaction"></a>
@@ -2022,8 +2024,8 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
- - **Accept**: application/json, text/html
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="issueDeleteMilestone"></a>
 # **issueDeleteMilestone**
@@ -2113,8 +2115,8 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
- - **Accept**: application/json, text/html
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="issueDeleteStopWatch"></a>
 # **issueDeleteStopWatch**
@@ -2269,7 +2271,7 @@ IssueApi apiInstance = new IssueApi();
 String owner = "owner_example"; // String | owner of the repo
 String repo = "repo_example"; // String | name of the repo
 Long index = 789L; // Long | index of the issue
-String user = "user_example"; // String | user witch unsubscribe
+String user = "user_example"; // String | username of the user to unsubscribe from an issue
 try {
     apiInstance.issueDeleteSubscription(owner, repo, index, user);
 } catch (ApiException e) {
@@ -2285,7 +2287,7 @@ Name | Type | Description  | Notes
  **owner** | **String**| owner of the repo |
  **repo** | **String**| name of the repo |
  **index** | **Long**| index of the issue |
- **user** | **String**| user witch unsubscribe |
+ **user** | **String**| username of the user to unsubscribe from an issue |
 
 ### Return type
 
@@ -2588,6 +2590,8 @@ Name | Type | Description  | Notes
 > Issue issueEditIssue(owner, repo, index, body)
 
 Edit an issue. If using deadline only the date will be taken into account, and time of day ignored.
+
+Pass &#x60;content_version&#x60; to enable optimistic locking on body edits. If the version doesn&#39;t match the current value, the request fails with 409 Conflict. 
 
 ### Example
 ```java
@@ -3428,7 +3432,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueGetCommentsAndTimeline"></a>
@@ -3528,7 +3532,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueGetIssue"></a>
@@ -3620,7 +3624,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueGetIssueAttachment"></a>
@@ -3714,7 +3718,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueGetIssueCommentAttachment"></a>
@@ -3808,7 +3812,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueGetIssueReactions"></a>
@@ -3996,7 +4000,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueGetLabels"></a>
@@ -4088,7 +4092,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueGetMilestone"></a>
@@ -4180,7 +4184,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueGetMilestonesList"></a>
@@ -4278,7 +4282,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueGetRepoComments"></a>
@@ -4376,7 +4380,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueListBlocks"></a>
@@ -4472,7 +4476,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueListIssueAttachments"></a>
@@ -4564,7 +4568,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueListIssueCommentAttachments"></a>
@@ -4656,7 +4660,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueListIssueDependencies"></a>
@@ -4752,7 +4756,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueListIssues"></a>
@@ -4817,13 +4821,13 @@ IssueApi apiInstance = new IssueApi();
 String owner = "owner_example"; // String | owner of the repo
 String repo = "repo_example"; // String | name of the repo
 String state = "state_example"; // String | whether issue is open or closed
-String labels = "labels_example"; // String | comma separated list of labels. Fetch only issues that have any of this labels. Non existent labels are discarded
+String labels = "labels_example"; // String | comma separated list of label names. Fetch only issues that have any of this label names. Non existent labels are discarded.
 String q = "q_example"; // String | search string
 String type = "type_example"; // String | filter by type (issues / pulls) if set
 String milestones = "milestones_example"; // String | comma separated list of milestone names or ids. It uses names and fall back to ids. Fetch only issues that have any of this milestones. Non existent milestones are discarded
 OffsetDateTime since = OffsetDateTime.now(); // OffsetDateTime | Only show items updated after the given time. This is a timestamp in RFC 3339 format
 OffsetDateTime before = OffsetDateTime.now(); // OffsetDateTime | Only show items updated before the given time. This is a timestamp in RFC 3339 format
-String createdBy = "createdBy_example"; // String | Only show items which were created by the the given user
+String createdBy = "createdBy_example"; // String | Only show items which were created by the given user
 String assignedBy = "assignedBy_example"; // String | Only show items for which the given user is assigned
 String mentionedBy = "mentionedBy_example"; // String | Only show items in which the given user was mentioned
 Integer page = 56; // Integer | page number of results to return (1-based)
@@ -4844,13 +4848,13 @@ Name | Type | Description  | Notes
  **owner** | **String**| owner of the repo |
  **repo** | **String**| name of the repo |
  **state** | **String**| whether issue is open or closed | [optional] [enum: closed, open, all]
- **labels** | **String**| comma separated list of labels. Fetch only issues that have any of this labels. Non existent labels are discarded | [optional]
+ **labels** | **String**| comma separated list of label names. Fetch only issues that have any of this label names. Non existent labels are discarded. | [optional]
  **q** | **String**| search string | [optional]
  **type** | **String**| filter by type (issues / pulls) if set | [optional] [enum: issues, pulls]
  **milestones** | **String**| comma separated list of milestone names or ids. It uses names and fall back to ids. Fetch only issues that have any of this milestones. Non existent milestones are discarded | [optional]
  **since** | **OffsetDateTime**| Only show items updated after the given time. This is a timestamp in RFC 3339 format | [optional]
  **before** | **OffsetDateTime**| Only show items updated before the given time. This is a timestamp in RFC 3339 format | [optional]
- **createdBy** | **String**| Only show items which were created by the the given user | [optional]
+ **createdBy** | **String**| Only show items which were created by the given user | [optional]
  **assignedBy** | **String**| Only show items for which the given user is assigned | [optional]
  **mentionedBy** | **String**| Only show items in which the given user was mentioned | [optional]
  **page** | **Integer**| page number of results to return (1-based) | [optional]
@@ -4866,7 +4870,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueListLabels"></a>
@@ -4960,7 +4964,100 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="issueLockIssue"></a>
+# **issueLockIssue**
+> issueLockIssue(owner, repo, index, body)
+
+Lock an issue
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.IssueApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+IssueApi apiInstance = new IssueApi();
+String owner = "owner_example"; // String | owner of the repo
+String repo = "repo_example"; // String | name of the repo
+Long index = 789L; // Long | index of the issue
+LockIssueOption body = new LockIssueOption(); // LockIssueOption | 
+try {
+    apiInstance.issueLockIssue(owner, repo, index, body);
+} catch (ApiException e) {
+    System.err.println("Exception when calling IssueApi#issueLockIssue");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **owner** | **String**| owner of the repo |
+ **repo** | **String**| name of the repo |
+ **index** | **Long**| index of the issue |
+ **body** | [**LockIssueOption**](LockIssueOption.md)|  | [optional]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issuePostCommentReaction"></a>
@@ -5242,7 +5339,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueRemoveIssueDependencies"></a>
@@ -5336,7 +5433,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueRemoveLabel"></a>
@@ -5429,7 +5526,7 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueReplaceLabels"></a>
@@ -5619,7 +5716,7 @@ null (empty response body)
 
 <a name="issueSearchIssues"></a>
 # **issueSearchIssues**
-> List&lt;Issue&gt; issueSearchIssues(state, labels, milestones, q, priorityRepoId, type, since, before, assigned, created, mentioned, reviewRequested, reviewed, owner, team, page, limit)
+> List&lt;Issue&gt; issueSearchIssues(state, labels, milestones, q, type, since, before, assigned, created, mentioned, reviewRequested, reviewed, owner, createdBy, team, page, limit)
 
 Search for issues across the repositories that the user has access to
 
@@ -5676,25 +5773,25 @@ Token.setApiKey("YOUR API KEY");
 //Token.setApiKeyPrefix("Token");
 
 IssueApi apiInstance = new IssueApi();
-String state = "state_example"; // String | whether issue is open or closed
-String labels = "labels_example"; // String | comma separated list of labels. Fetch only issues that have any of this labels. Non existent labels are discarded
-String milestones = "milestones_example"; // String | comma separated list of milestone names. Fetch only issues that have any of this milestones. Non existent are discarded
-String q = "q_example"; // String | search string
-Long priorityRepoId = 789L; // Long | repository to prioritize in the results
-String type = "type_example"; // String | filter by type (issues / pulls) if set
-OffsetDateTime since = OffsetDateTime.now(); // OffsetDateTime | Only show notifications updated after the given time. This is a timestamp in RFC 3339 format
-OffsetDateTime before = OffsetDateTime.now(); // OffsetDateTime | Only show notifications updated before the given time. This is a timestamp in RFC 3339 format
-Boolean assigned = true; // Boolean | filter (issues / pulls) assigned to you, default is false
-Boolean created = true; // Boolean | filter (issues / pulls) created by you, default is false
-Boolean mentioned = true; // Boolean | filter (issues / pulls) mentioning you, default is false
-Boolean reviewRequested = true; // Boolean | filter pulls requesting your review, default is false
-Boolean reviewed = true; // Boolean | filter pulls reviewed by you, default is false
-String owner = "owner_example"; // String | filter by owner
-String team = "team_example"; // String | filter by team (requires organization owner parameter to be provided)
-Integer page = 56; // Integer | page number of results to return (1-based)
-Integer limit = 56; // Integer | page size of results
+String state = "open"; // String | State of the issue
+String labels = "labels_example"; // String | Comma-separated list of label names. Fetch only issues that have any of these labels. Non existent labels are discarded.
+String milestones = "milestones_example"; // String | Comma-separated list of milestone names. Fetch only issues that have any of these milestones. Non existent milestones are discarded.
+String q = "q_example"; // String | Search string
+String type = "type_example"; // String | Filter by issue type
+OffsetDateTime since = OffsetDateTime.now(); // OffsetDateTime | Only show issues updated after the given time (RFC 3339 format)
+OffsetDateTime before = OffsetDateTime.now(); // OffsetDateTime | Only show issues updated before the given time (RFC 3339 format)
+Boolean assigned = false; // Boolean | Filter issues or pulls assigned to the authenticated user
+Boolean created = false; // Boolean | Filter issues or pulls created by the authenticated user
+Boolean mentioned = false; // Boolean | Filter issues or pulls mentioning the authenticated user
+Boolean reviewRequested = false; // Boolean | Filter pull requests where the authenticated user's review was requested
+Boolean reviewed = false; // Boolean | Filter pull requests reviewed by the authenticated user
+String owner = "owner_example"; // String | Filter by repository owner
+String createdBy = "createdBy_example"; // String | Only show items which were created by the given user
+String team = "team_example"; // String | Filter by team (requires organization owner parameter)
+Integer page = 1; // Integer | Page number of results to return (1-based)
+Integer limit = 56; // Integer | Number of items per page
 try {
-    List<Issue> result = apiInstance.issueSearchIssues(state, labels, milestones, q, priorityRepoId, type, since, before, assigned, created, mentioned, reviewRequested, reviewed, owner, team, page, limit);
+    List<Issue> result = apiInstance.issueSearchIssues(state, labels, milestones, q, type, since, before, assigned, created, mentioned, reviewRequested, reviewed, owner, createdBy, team, page, limit);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling IssueApi#issueSearchIssues");
@@ -5706,23 +5803,23 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **state** | **String**| whether issue is open or closed | [optional]
- **labels** | **String**| comma separated list of labels. Fetch only issues that have any of this labels. Non existent labels are discarded | [optional]
- **milestones** | **String**| comma separated list of milestone names. Fetch only issues that have any of this milestones. Non existent are discarded | [optional]
- **q** | **String**| search string | [optional]
- **priorityRepoId** | **Long**| repository to prioritize in the results | [optional]
- **type** | **String**| filter by type (issues / pulls) if set | [optional]
- **since** | **OffsetDateTime**| Only show notifications updated after the given time. This is a timestamp in RFC 3339 format | [optional]
- **before** | **OffsetDateTime**| Only show notifications updated before the given time. This is a timestamp in RFC 3339 format | [optional]
- **assigned** | **Boolean**| filter (issues / pulls) assigned to you, default is false | [optional]
- **created** | **Boolean**| filter (issues / pulls) created by you, default is false | [optional]
- **mentioned** | **Boolean**| filter (issues / pulls) mentioning you, default is false | [optional]
- **reviewRequested** | **Boolean**| filter pulls requesting your review, default is false | [optional]
- **reviewed** | **Boolean**| filter pulls reviewed by you, default is false | [optional]
- **owner** | **String**| filter by owner | [optional]
- **team** | **String**| filter by team (requires organization owner parameter to be provided) | [optional]
- **page** | **Integer**| page number of results to return (1-based) | [optional]
- **limit** | **Integer**| page size of results | [optional]
+ **state** | **String**| State of the issue | [optional] [default to open] [enum: open, closed, all]
+ **labels** | **String**| Comma-separated list of label names. Fetch only issues that have any of these labels. Non existent labels are discarded. | [optional]
+ **milestones** | **String**| Comma-separated list of milestone names. Fetch only issues that have any of these milestones. Non existent milestones are discarded. | [optional]
+ **q** | **String**| Search string | [optional]
+ **type** | **String**| Filter by issue type | [optional] [enum: issues, pulls]
+ **since** | **OffsetDateTime**| Only show issues updated after the given time (RFC 3339 format) | [optional]
+ **before** | **OffsetDateTime**| Only show issues updated before the given time (RFC 3339 format) | [optional]
+ **assigned** | **Boolean**| Filter issues or pulls assigned to the authenticated user | [optional] [default to false]
+ **created** | **Boolean**| Filter issues or pulls created by the authenticated user | [optional] [default to false]
+ **mentioned** | **Boolean**| Filter issues or pulls mentioning the authenticated user | [optional] [default to false]
+ **reviewRequested** | **Boolean**| Filter pull requests where the authenticated user&#39;s review was requested | [optional] [default to false]
+ **reviewed** | **Boolean**| Filter pull requests reviewed by the authenticated user | [optional] [default to false]
+ **owner** | **String**| Filter by repository owner | [optional]
+ **createdBy** | **String**| Only show items which were created by the given user | [optional]
+ **team** | **String**| Filter by team (requires organization owner parameter) | [optional]
+ **page** | **Integer**| Page number of results to return (1-based) | [optional] [default to 1]
+ **limit** | **Integer**| Number of items per page | [optional]
 
 ### Return type
 
@@ -5734,7 +5831,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="issueStartStopWatch"></a>
@@ -6114,7 +6211,98 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="issueUnlockIssue"></a>
+# **issueUnlockIssue**
+> issueUnlockIssue(owner, repo, index)
+
+Unlock an issue
+
+### Example
+```java
+// Import classes:
+//import io.gitea.ApiClient;
+//import io.gitea.ApiException;
+//import io.gitea.Configuration;
+//import io.gitea.auth.*;
+//import io.gitea.api.IssueApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: AccessToken
+ApiKeyAuth AccessToken = (ApiKeyAuth) defaultClient.getAuthentication("AccessToken");
+AccessToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessToken.setApiKeyPrefix("Token");
+
+// Configure API key authorization: AuthorizationHeaderToken
+ApiKeyAuth AuthorizationHeaderToken = (ApiKeyAuth) defaultClient.getAuthentication("AuthorizationHeaderToken");
+AuthorizationHeaderToken.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AuthorizationHeaderToken.setApiKeyPrefix("Token");
+
+// Configure HTTP basic authorization: BasicAuth
+HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+BasicAuth.setUsername("YOUR USERNAME");
+BasicAuth.setPassword("YOUR PASSWORD");
+
+// Configure API key authorization: SudoHeader
+ApiKeyAuth SudoHeader = (ApiKeyAuth) defaultClient.getAuthentication("SudoHeader");
+SudoHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: SudoParam
+ApiKeyAuth SudoParam = (ApiKeyAuth) defaultClient.getAuthentication("SudoParam");
+SudoParam.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//SudoParam.setApiKeyPrefix("Token");
+
+// Configure API key authorization: TOTPHeader
+ApiKeyAuth TOTPHeader = (ApiKeyAuth) defaultClient.getAuthentication("TOTPHeader");
+TOTPHeader.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//TOTPHeader.setApiKeyPrefix("Token");
+
+// Configure API key authorization: Token
+ApiKeyAuth Token = (ApiKeyAuth) defaultClient.getAuthentication("Token");
+Token.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Token.setApiKeyPrefix("Token");
+
+IssueApi apiInstance = new IssueApi();
+String owner = "owner_example"; // String | owner of the repo
+String repo = "repo_example"; // String | name of the repo
+Long index = 789L; // Long | index of the issue
+try {
+    apiInstance.issueUnlockIssue(owner, repo, index);
+} catch (ApiException e) {
+    System.err.println("Exception when calling IssueApi#issueUnlockIssue");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **owner** | **String**| owner of the repo |
+ **repo** | **String**| name of the repo |
+ **index** | **Long**| index of the issue |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[AccessToken](../README.md#AccessToken), [AuthorizationHeaderToken](../README.md#AuthorizationHeaderToken), [BasicAuth](../README.md#BasicAuth), [SudoHeader](../README.md#SudoHeader), [SudoParam](../README.md#SudoParam), [TOTPHeader](../README.md#TOTPHeader), [Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="moveIssuePin"></a>
@@ -6207,8 +6395,8 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
- - **Accept**: application/json, text/html
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="pinIssue"></a>
 # **pinIssue**
@@ -6298,8 +6486,8 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
- - **Accept**: application/json, text/html
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="unpinIssue"></a>
 # **unpinIssue**
@@ -6389,6 +6577,6 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
- - **Accept**: application/json, text/html
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 

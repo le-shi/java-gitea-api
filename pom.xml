@@ -4,7 +4,7 @@
     <artifactId>java-gitea-api</artifactId>
     <packaging>jar</packaging>
     <name>java-gitea-api</name>
-    <version>1.21.1</version>
+    <version>1.26.0</version>
     <url>https://github.com/le-shi/java-gitea-api</url>
     <description>Swagger Java Client for Gitea</description>
     <scm>
