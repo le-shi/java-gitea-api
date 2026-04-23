@@ -8,6 +8,7 @@ on:
         required: true
 
 permissions:
+  actions: write
   contents: write
 
 concurrency:
@@ -159,6 +160,19 @@ jobs:
             git commit -m "根据上游 Gitea Tag $TAG 初始化 $BRANCH"
           fi
           git push -u origin "$BRANCH"
+
+      - name: Dispatch swagger regenerate workflow
+        if: steps.branch.outputs.exists == 'false'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh api \
+            -X POST \
+            "repos/$GH_REPO/actions/workflows/swagger-regenerate.yml/dispatches" \
+            -f ref='release/${{ steps.input.outputs.version }}'
+
+          echo "Dispatched swagger regenerate workflow for release/${{ steps.input.outputs.version }}"
 
       - name: Restore master checkout
         if: always()
