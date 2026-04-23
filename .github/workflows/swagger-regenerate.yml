@@ -72,6 +72,7 @@ jobs:
 
           readme_path = pathlib.Path('README.md')
           readme = readme_path.read_text(encoding='utf-8')
+          readme = re.sub(r'(- API version: )([^\n]+)', rf'\g<1>{version}', readme, count=1)
           readme = re.sub(r'(<version>)([^<]+)(</version>)', rf'\g<1>{version}\g<3>', readme, count=1)
           readme = re.sub(r'(implementation "io\.github\.le-shi:java-gitea-api:)([^"]+)(")', rf'\g<1>{version}\g<3>', readme, count=1)
           readme = re.sub(r'(`target/java-gitea-api-)([^`]+)(\.jar`)', rf'\g<1>{version}\g<3>', readme, count=1)
@@ -117,6 +118,24 @@ jobs:
             git push origin HEAD:${GITHUB_REF#refs/heads/}
           fi
 
+      - name: Create tag if missing
+        run: |
+          git fetch --tags origin
+          if git rev-parse "refs/tags/$VERSION" >/dev/null 2>&1; then
+            echo "Tag $VERSION already exists locally"
+          elif git ls-remote --exit-code --tags origin "refs/tags/$VERSION" >/dev/null 2>&1; then
+            echo "Tag $VERSION already exists on origin"
+            git fetch --tags origin
+          else
+            git tag "$VERSION" "$GITHUB_SHA"
+            git push origin "refs/tags/$VERSION"
+          fi
+
+      - name: Verify tag points to current commit
+        run: |
+          git fetch --tags origin
+          test "$(git rev-parse "refs/tags/$VERSION")" = "$GITHUB_SHA"
+
       - name: Create GitHub release if missing
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -125,7 +144,7 @@ jobs:
             echo "Release $VERSION already exists"
             exit 0
           fi
-          gh release create "$VERSION" --title "$VERSION" --generate-notes
+          gh release create "$VERSION" --verify-tag --title "$VERSION" --generate-notes
 
       - name: Dispatch release workflow
         env:

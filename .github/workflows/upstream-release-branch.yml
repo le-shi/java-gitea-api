@@ -134,6 +134,7 @@ jobs:
 
           readme_path = pathlib.Path('README.md')
           readme = readme_path.read_text(encoding='utf-8')
+          readme = re.sub(r'(- API version: )([^\n]+)', rf'\g<1>{version}', readme, count=1)
           readme = re.sub(r'(<version>)([^<]+)(</version>)', rf'\g<1>{version}\g<3>', readme, count=1)
           readme = re.sub(r'(implementation "io\.github\.le-shi:java-gitea-api:)([^"]+)(")', rf'\g<1>{version}\g<3>', readme, count=1)
           readme = re.sub(r'(`target/java-gitea-api-)([^`]+)(\.jar`)', rf'\g<1>{version}\g<3>', readme, count=1)
