@@ -12,6 +12,7 @@ on:
       - '.github/workflows/swagger-regenerate.yml'
 
 permissions:
+  actions: write
   contents: write
 
 jobs:
@@ -125,3 +126,15 @@ jobs:
             exit 0
           fi
           gh release create "$VERSION" --title "$VERSION" --generate-notes
+
+      - name: Dispatch release workflow
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh api \
+            -X POST \
+            "repos/$GH_REPO/actions/workflows/release.yml/dispatches" \
+            -f ref="$VERSION"
+
+          echo "Dispatched release workflow for tag $VERSION"

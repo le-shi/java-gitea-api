@@ -14,8 +14,23 @@ jobs:
     name: Build and publish to Sonatype Central
     runs-on: ubuntu-latest
     steps:
+      - name: Ensure current ref is a tag
+        run: |
+          case "$GITHUB_REF" in
+            refs/tags/*) ;;
+            *) echo "This workflow only supports tag refs"; exit 1 ;;
+          esac
+
       - name: Check out code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: Verify checked out ref matches the tag
+        run: |
+          git rev-parse --verify "$GITHUB_REF"
+          test "$(git rev-parse HEAD)" = "$(git rev-list -n 1 "$GITHUB_REF")"
 
       - name: Set up Java and Maven Central credentials
         uses: actions/setup-java@v4
