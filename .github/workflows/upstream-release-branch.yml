@@ -25,6 +25,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Ensure current ref is master
+        run: |
+          case "$GITHUB_REF" in
+            refs/heads/master) ;;
+            *) echo "This workflow only supports master"; exit 1 ;;
+          esac
+
       - name: Set up Git
         run: |
           git config user.name "github-actions[bot]"
