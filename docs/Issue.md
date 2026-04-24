@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **ref** | **String** |  |  [optional]
 **repository** | [**RepositoryMeta**](RepositoryMeta.md) |  |  [optional]
 **state** | **String** |  |  [optional]
+**timeEstimate** | **Long** |  |  [optional]
 **title** | **String** |  |  [optional]
 **updatedAt** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **url** | **String** |  |  [optional]
