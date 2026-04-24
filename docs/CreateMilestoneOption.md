@@ -4,10 +4,10 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **String** |  |  [optional]
+**description** | **String** | Description provides details about the milestone |  [optional]
 **dueOn** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **state** | [**StateEnum**](#StateEnum) |  |  [optional]
-**title** | **String** |  |  [optional]
+**title** | **String** | Title is the title of the new milestone |  [optional]
 
 
 <a name="StateEnum"></a>
