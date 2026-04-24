@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git pull *)",
+      "Bash(git push *)",
+      "Bash(git commit *)",
+      "WebFetch(domain:chat.deepseek.com)",
+      "Bash(mvn clean *)",
+      "Bash(mvn -B -Prelease clean package)",
+      "Bash(rm -f \"src/test/java/io/gitea/api/\"*Test.java)",
+      "Bash(mvn -B generate-sources)",
+      "Bash(mvn -B clean package)",
+      "Bash(rm -f docs/*.md)",
+      "Bash(rm -f src/test/java/io/gitea/api/*Test.java)",
+      "Bash(rm -f src/main/java/io/gitea/api/*.java)",
+      "Bash(rm -f src/main/java/io/gitea/model/*.java)",
+      "Bash(mvn -B clean install)",
+      "Bash(git checkout *)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}
