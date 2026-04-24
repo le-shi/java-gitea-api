@@ -59,12 +59,29 @@ jobs:
         id: candidates
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MIN_VERSION: 1.21.1
         run: |
           TAGS=$(git ls-remote --tags --refs https://github.com/go-gitea/gitea 'v1.*' \
             | awk '{print $2}' \
             | sed 's#refs/tags/##' \
             | grep -E '^v1\..*$' \
             | grep -Ev -- '-rc|-dev$' \
+            | awk -v min_version="$MIN_VERSION" '
+                function normalize(version,  parts, n, i, out) {
+                  n = split(version, parts, ".")
+                  out = ""
+                  for (i = 1; i <= 3; i++) {
+                    out = out sprintf("%09d", (i <= n ? parts[i] + 0 : 0))
+                  }
+                  return out
+                }
+                {
+                  version = substr($0, 2)
+                  if (normalize(version) >= normalize(min_version)) {
+                    print
+                  }
+                }
+              ' \
             | sort -V -r)
 
           if [ -z "$TAGS" ]; then
