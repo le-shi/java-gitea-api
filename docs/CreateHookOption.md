@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **active** | **Boolean** |  |  [optional]
-**authorizationHeader** | **String** |  |  [optional]
-**branchFilter** | **String** |  |  [optional]
+**authorizationHeader** | **String** | Authorization header to include in webhook requests |  [optional]
+**branchFilter** | **String** | Branch filter pattern to determine which branches trigger the webhook |  [optional]
 **config** | [**CreateHookOptionConfig**](CreateHookOptionConfig.md) |  | 
-**events** | **List&lt;String&gt;** |  |  [optional]
+**events** | **List&lt;String&gt;** | List of events that will trigger this webhook |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) |  | 
 
 
