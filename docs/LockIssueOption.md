@@ -1,10 +1,10 @@
 
-# AccessTokenName
+# LockIssueOption
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** |  | 
+**lockReason** | **String** |  |  [optional]
 
 
 

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **fromPath** | **String** | from_path (optional) is the path of the original file which will be moved/renamed to the path in the URL |  [optional]
 **message** | **String** | message (optional) for the commit of this file. if not supplied, a default message will be used |  [optional]
 **newBranch** | **String** | new_branch (optional) will make a new branch from &#x60;branch&#x60; before creating the file |  [optional]
-**sha** | **String** | sha is the SHA for the file that already exists | 
+**sha** | **String** | the blob ID (SHA) for the file that already exists, it is required for changing existing files | 
 **signoff** | **Boolean** | Add a Signed-off-by trailer by the committer at the end of the commit log message. |  [optional]
 
 
