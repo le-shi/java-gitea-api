@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **body** | **String** |  |  [optional]
 **closedAt** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **comments** | **Long** |  |  [optional]
+**contentVersion** | **Long** | The version of the issue content for optimistic locking |  [optional]
 **createdAt** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **dueDate** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **htmlUrl** | **String** |  |  [optional]
@@ -24,11 +25,20 @@ Name | Type | Description | Notes
 **pullRequest** | [**PullRequestMeta**](PullRequestMeta.md) |  |  [optional]
 **ref** | **String** |  |  [optional]
 **repository** | [**RepositoryMeta**](RepositoryMeta.md) |  |  [optional]
-**state** | **String** |  |  [optional]
+**state** | [**StateEnum**](#StateEnum) |  |  [optional]
+**timeEstimate** | **Long** |  |  [optional]
 **title** | **String** |  |  [optional]
 **updatedAt** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **url** | **String** |  |  [optional]
 **user** | [**User**](User.md) |  |  [optional]
+
+
+<a name="StateEnum"></a>
+## Enum: StateEnum
+Name | Value
+---- | -----
+OPEN | &quot;open&quot;
+CLOSED | &quot;closed&quot;
 
 
 
