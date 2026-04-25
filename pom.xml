@@ -4,7 +4,7 @@
     <artifactId>java-gitea-api</artifactId>
     <packaging>jar</packaging>
     <name>java-gitea-api</name>
-    <version>1.26.0</version>
+    <version>1.26.1</version>
     <url>https://github.com/le-shi/java-gitea-api</url>
     <description>Swagger Java Client for Gitea</description>
     <scm>
@@ -62,7 +62,7 @@
                         <hideGenerationTimestamp>true</hideGenerationTimestamp>
                         <artifactId>java-gitea-api</artifactId>
                         <groupId>io.github.le-shi</groupId>
-                        <artifactVersion>${project.version}</artifactVersion>
+                        <artifactVersion>1.26.1</artifactVersion>
                     </configOptions>
                 </configuration>
             </plugin>
