@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**context** | **String** |  |  [optional]
+**context** | **String** | Context defines the JSON-LD context for ActivityPub |  [optional]
 
 
 
