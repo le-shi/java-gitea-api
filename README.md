@@ -1,7 +1,7 @@
 # java-gitea-api
 
 Gitea API.
-- API version: 1.26.0
+- API version: 1.24.7
 
 This documentation describes the Gitea API.
 
@@ -39,7 +39,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.github.le-shi</groupId>
   <artifactId>java-gitea-api</artifactId>
-  <version>1.26.0</version>
+  <version>1.24.7</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -49,7 +49,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-implementation "io.github.le-shi:java-gitea-api:1.26.0"
+implementation "io.github.le-shi:java-gitea-api:1.24.7"
 ```
 
 ### Others
@@ -62,5 +62,5 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/java-gitea-api-1.26.0.jar`
+* `target/java-gitea-api-1.24.7.jar`
 * `target/lib/*.jar`
