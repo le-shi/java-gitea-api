@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **authPassword** | **String** |  |  [optional]
 **authToken** | **String** |  |  [optional]
 **authUsername** | **String** |  |  [optional]
+**awsAccessKeyId** | **String** |  |  [optional]
+**awsSecretAccessKey** | **String** |  |  [optional]
 **cloneAddr** | **String** |  | 
 **description** | **String** |  |  [optional]
 **issues** | **Boolean** |  |  [optional]
@@ -38,6 +40,7 @@ GOGS | &quot;gogs&quot;
 ONEDEV | &quot;onedev&quot;
 GITBUCKET | &quot;gitbucket&quot;
 CODEBASE | &quot;codebase&quot;
+CODECOMMIT | &quot;codecommit&quot;
 
 
 

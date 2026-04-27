@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **id** | **Long** |  |  [optional]
 **name** | **String** |  |  [optional]
 **redirectUris** | **List&lt;String&gt;** |  |  [optional]
+**skipSecondaryAuthorization** | **Boolean** |  |  [optional]
 
 
 
