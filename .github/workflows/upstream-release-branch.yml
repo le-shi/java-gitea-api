@@ -121,8 +121,15 @@ jobs:
 
           swagger_template_path = pathlib.Path('upstream-gitea/templates/swagger/v1_json.tmpl')
           swagger = swagger_template_path.read_text(encoding='utf-8')
+          swagger = swagger.replace('{{AppVer | JSEscape}}', version)
+          swagger = swagger.replace('{{AppSubUrl | JSEscape}}', '')
           swagger = swagger.replace('{{.SwaggerAppVer}}', version)
           swagger = swagger.replace('{{.SwaggerAppSubUrl}}', '')
+
+          unresolved = sorted(set(re.findall(r'\{\{[^{}]+\}\}', swagger)))
+          if unresolved:
+              raise ValueError(f'Unresolved swagger template tokens: {unresolved}')
+
           json.loads(swagger)
           pathlib.Path('swagger.v1.json').write_text(swagger, encoding='utf-8')
 
