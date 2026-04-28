@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **head** | **String** |  |  [optional]
 **labels** | **List&lt;Long&gt;** |  |  [optional]
 **milestone** | **Long** |  |  [optional]
+**reviewers** | **List&lt;String&gt;** |  |  [optional]
+**teamReviewers** | **List&lt;String&gt;** |  |  [optional]
 **title** | **String** |  |  [optional]
 
 

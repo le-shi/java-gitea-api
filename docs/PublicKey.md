@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **id** | **Long** |  |  [optional]
 **key** | **String** |  |  [optional]
 **keyType** | **String** |  |  [optional]
+**lastUsedAt** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **readOnly** | **Boolean** |  |  [optional]
 **title** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
