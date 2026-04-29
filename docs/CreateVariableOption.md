@@ -1,10 +1,10 @@
 
-# AccessTokenName
+# CreateVariableOption
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** |  | 
+**value** | **String** | Value of the variable to create | 
 
 
 

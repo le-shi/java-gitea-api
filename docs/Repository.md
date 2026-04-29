@@ -4,6 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**allowFastForwardOnlyMerge** | **Boolean** |  |  [optional]
 **allowMergeCommits** | **Boolean** |  |  [optional]
 **allowRebase** | **Boolean** |  |  [optional]
 **allowRebaseExplicit** | **Boolean** |  |  [optional]
@@ -39,11 +40,13 @@ Name | Type | Description | Notes
 **internalTracker** | [**InternalTracker**](InternalTracker.md) |  |  [optional]
 **language** | **String** |  |  [optional]
 **languagesUrl** | **String** |  |  [optional]
+**licenses** | **List&lt;String&gt;** |  |  [optional]
 **link** | **String** |  |  [optional]
 **mirror** | **Boolean** |  |  [optional]
 **mirrorInterval** | **String** |  |  [optional]
 **mirrorUpdated** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **name** | **String** |  |  [optional]
+**objectFormatName** | [**ObjectFormatNameEnum**](#ObjectFormatNameEnum) | ObjectFormatName of the underlying git repository |  [optional]
 **openIssuesCount** | **Long** |  |  [optional]
 **openPrCounter** | **Long** |  |  [optional]
 **originalUrl** | **String** |  |  [optional]
@@ -51,16 +54,26 @@ Name | Type | Description | Notes
 **parent** | [**Repository**](Repository.md) |  |  [optional]
 **permissions** | [**Permission**](Permission.md) |  |  [optional]
 **_private** | **Boolean** |  |  [optional]
+**projectsMode** | **String** |  |  [optional]
 **releaseCounter** | **Long** |  |  [optional]
 **repoTransfer** | [**RepoTransfer**](RepoTransfer.md) |  |  [optional]
 **size** | **Long** |  |  [optional]
 **sshUrl** | **String** |  |  [optional]
 **starsCount** | **Long** |  |  [optional]
 **template** | **Boolean** |  |  [optional]
+**topics** | **List&lt;String&gt;** |  |  [optional]
 **updatedAt** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **url** | **String** |  |  [optional]
 **watchersCount** | **Long** |  |  [optional]
 **website** | **String** |  |  [optional]
+
+
+<a name="ObjectFormatNameEnum"></a>
+## Enum: ObjectFormatNameEnum
+Name | Value
+---- | -----
+SHA1 | &quot;sha1&quot;
+SHA256 | &quot;sha256&quot;
 
 
 
