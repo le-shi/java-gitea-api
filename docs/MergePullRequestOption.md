@@ -22,6 +22,7 @@ MERGE | &quot;merge&quot;
 REBASE | &quot;rebase&quot;
 REBASE_MERGE | &quot;rebase-merge&quot;
 SQUASH | &quot;squash&quot;
+FAST_FORWARD_ONLY | &quot;fast-forward-only&quot;
 MANUALLY_MERGED | &quot;manually-merged&quot;
 
 
