@@ -1,6 +1,6 @@
 # IssueApi
 
-All URIs are relative to *http://localhost/api/v1*
+All URIs are relative to *https://localhost/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -4823,7 +4823,7 @@ String type = "type_example"; // String | filter by type (issues / pulls) if set
 String milestones = "milestones_example"; // String | comma separated list of milestone names or ids. It uses names and fall back to ids. Fetch only issues that have any of this milestones. Non existent milestones are discarded
 OffsetDateTime since = OffsetDateTime.now(); // OffsetDateTime | Only show items updated after the given time. This is a timestamp in RFC 3339 format
 OffsetDateTime before = OffsetDateTime.now(); // OffsetDateTime | Only show items updated before the given time. This is a timestamp in RFC 3339 format
-String createdBy = "createdBy_example"; // String | Only show items which were created by the the given user
+String createdBy = "createdBy_example"; // String | Only show items which were created by the given user
 String assignedBy = "assignedBy_example"; // String | Only show items for which the given user is assigned
 String mentionedBy = "mentionedBy_example"; // String | Only show items in which the given user was mentioned
 Integer page = 56; // Integer | page number of results to return (1-based)
@@ -4850,7 +4850,7 @@ Name | Type | Description  | Notes
  **milestones** | **String**| comma separated list of milestone names or ids. It uses names and fall back to ids. Fetch only issues that have any of this milestones. Non existent milestones are discarded | [optional]
  **since** | **OffsetDateTime**| Only show items updated after the given time. This is a timestamp in RFC 3339 format | [optional]
  **before** | **OffsetDateTime**| Only show items updated before the given time. This is a timestamp in RFC 3339 format | [optional]
- **createdBy** | **String**| Only show items which were created by the the given user | [optional]
+ **createdBy** | **String**| Only show items which were created by the given user | [optional]
  **assignedBy** | **String**| Only show items for which the given user is assigned | [optional]
  **mentionedBy** | **String**| Only show items in which the given user was mentioned | [optional]
  **page** | **Integer**| page number of results to return (1-based) | [optional]
@@ -5676,23 +5676,23 @@ Token.setApiKey("YOUR API KEY");
 //Token.setApiKeyPrefix("Token");
 
 IssueApi apiInstance = new IssueApi();
-String state = "state_example"; // String | whether issue is open or closed
-String labels = "labels_example"; // String | comma separated list of labels. Fetch only issues that have any of this labels. Non existent labels are discarded
-String milestones = "milestones_example"; // String | comma separated list of milestone names. Fetch only issues that have any of this milestones. Non existent are discarded
-String q = "q_example"; // String | search string
-Long priorityRepoId = 789L; // Long | repository to prioritize in the results
-String type = "type_example"; // String | filter by type (issues / pulls) if set
-OffsetDateTime since = OffsetDateTime.now(); // OffsetDateTime | Only show notifications updated after the given time. This is a timestamp in RFC 3339 format
-OffsetDateTime before = OffsetDateTime.now(); // OffsetDateTime | Only show notifications updated before the given time. This is a timestamp in RFC 3339 format
-Boolean assigned = true; // Boolean | filter (issues / pulls) assigned to you, default is false
-Boolean created = true; // Boolean | filter (issues / pulls) created by you, default is false
-Boolean mentioned = true; // Boolean | filter (issues / pulls) mentioning you, default is false
-Boolean reviewRequested = true; // Boolean | filter pulls requesting your review, default is false
-Boolean reviewed = true; // Boolean | filter pulls reviewed by you, default is false
-String owner = "owner_example"; // String | filter by owner
-String team = "team_example"; // String | filter by team (requires organization owner parameter to be provided)
-Integer page = 56; // Integer | page number of results to return (1-based)
-Integer limit = 56; // Integer | page size of results
+String state = "open"; // String | State of the issue
+String labels = "labels_example"; // String | Comma-separated list of label names. Fetch only issues that have any of these labels. Non existent labels are discarded.
+String milestones = "milestones_example"; // String | Comma-separated list of milestone names. Fetch only issues that have any of these milestones. Non existent milestones are discarded.
+String q = "q_example"; // String | Search string
+Long priorityRepoId = 789L; // Long | Repository ID to prioritize in the results
+String type = "type_example"; // String | Filter by issue type
+OffsetDateTime since = OffsetDateTime.now(); // OffsetDateTime | Only show issues updated after the given time (RFC 3339 format)
+OffsetDateTime before = OffsetDateTime.now(); // OffsetDateTime | Only show issues updated before the given time (RFC 3339 format)
+Boolean assigned = false; // Boolean | Filter issues or pulls assigned to the authenticated user
+Boolean created = false; // Boolean | Filter issues or pulls created by the authenticated user
+Boolean mentioned = false; // Boolean | Filter issues or pulls mentioning the authenticated user
+Boolean reviewRequested = false; // Boolean | Filter pull requests where the authenticated user's review was requested
+Boolean reviewed = false; // Boolean | Filter pull requests reviewed by the authenticated user
+String owner = "owner_example"; // String | Filter by repository owner
+String team = "team_example"; // String | Filter by team (requires organization owner parameter)
+Integer page = 1; // Integer | Page number of results to return (1-based)
+Integer limit = 56; // Integer | Number of items per page
 try {
     List<Issue> result = apiInstance.issueSearchIssues(state, labels, milestones, q, priorityRepoId, type, since, before, assigned, created, mentioned, reviewRequested, reviewed, owner, team, page, limit);
     System.out.println(result);
@@ -5706,23 +5706,23 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **state** | **String**| whether issue is open or closed | [optional]
- **labels** | **String**| comma separated list of labels. Fetch only issues that have any of this labels. Non existent labels are discarded | [optional]
- **milestones** | **String**| comma separated list of milestone names. Fetch only issues that have any of this milestones. Non existent are discarded | [optional]
- **q** | **String**| search string | [optional]
- **priorityRepoId** | **Long**| repository to prioritize in the results | [optional]
- **type** | **String**| filter by type (issues / pulls) if set | [optional]
- **since** | **OffsetDateTime**| Only show notifications updated after the given time. This is a timestamp in RFC 3339 format | [optional]
- **before** | **OffsetDateTime**| Only show notifications updated before the given time. This is a timestamp in RFC 3339 format | [optional]
- **assigned** | **Boolean**| filter (issues / pulls) assigned to you, default is false | [optional]
- **created** | **Boolean**| filter (issues / pulls) created by you, default is false | [optional]
- **mentioned** | **Boolean**| filter (issues / pulls) mentioning you, default is false | [optional]
- **reviewRequested** | **Boolean**| filter pulls requesting your review, default is false | [optional]
- **reviewed** | **Boolean**| filter pulls reviewed by you, default is false | [optional]
- **owner** | **String**| filter by owner | [optional]
- **team** | **String**| filter by team (requires organization owner parameter to be provided) | [optional]
- **page** | **Integer**| page number of results to return (1-based) | [optional]
- **limit** | **Integer**| page size of results | [optional]
+ **state** | **String**| State of the issue | [optional] [default to open] [enum: open, closed, all]
+ **labels** | **String**| Comma-separated list of label names. Fetch only issues that have any of these labels. Non existent labels are discarded. | [optional]
+ **milestones** | **String**| Comma-separated list of milestone names. Fetch only issues that have any of these milestones. Non existent milestones are discarded. | [optional]
+ **q** | **String**| Search string | [optional]
+ **priorityRepoId** | **Long**| Repository ID to prioritize in the results | [optional]
+ **type** | **String**| Filter by issue type | [optional] [enum: issues, pulls]
+ **since** | **OffsetDateTime**| Only show issues updated after the given time (RFC 3339 format) | [optional]
+ **before** | **OffsetDateTime**| Only show issues updated before the given time (RFC 3339 format) | [optional]
+ **assigned** | **Boolean**| Filter issues or pulls assigned to the authenticated user | [optional] [default to false]
+ **created** | **Boolean**| Filter issues or pulls created by the authenticated user | [optional] [default to false]
+ **mentioned** | **Boolean**| Filter issues or pulls mentioning the authenticated user | [optional] [default to false]
+ **reviewRequested** | **Boolean**| Filter pull requests where the authenticated user&#39;s review was requested | [optional] [default to false]
+ **reviewed** | **Boolean**| Filter pull requests reviewed by the authenticated user | [optional] [default to false]
+ **owner** | **String**| Filter by repository owner | [optional]
+ **team** | **String**| Filter by team (requires organization owner parameter) | [optional]
+ **page** | **Integer**| Page number of results to return (1-based) | [optional] [default to 1]
+ **limit** | **Integer**| Number of items per page | [optional]
 
 ### Return type
 
