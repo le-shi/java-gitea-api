@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **authPassword** | **String** |  |  [optional]
 **authToken** | **String** |  |  [optional]
 **authUsername** | **String** |  |  [optional]
+**awsAccessKeyId** | **String** |  |  [optional]
+**awsSecretAccessKey** | **String** |  |  [optional]
 **cloneAddr** | **String** |  | 
 **description** | **String** |  |  [optional]
 **issues** | **Boolean** |  |  [optional]
