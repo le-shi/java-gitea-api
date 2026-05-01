@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **fullName** | **String** |  |  [optional]
 **loginName** | **String** |  |  [optional]
 **mustChangePassword** | **Boolean** |  |  [optional]
-**password** | **String** |  | 
+**password** | **String** |  |  [optional]
 **restricted** | **Boolean** |  |  [optional]
 **sendNotify** | **Boolean** |  |  [optional]
 **sourceId** | **Long** |  |  [optional]
