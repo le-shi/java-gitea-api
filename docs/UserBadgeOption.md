@@ -1,10 +1,10 @@
 
-# AccessTokenName
+# UserBadgeOption
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** |  | 
+**badgeSlugs** | **List&lt;String&gt;** |  |  [optional]
 
 
 
