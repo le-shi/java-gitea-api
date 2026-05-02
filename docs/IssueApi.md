@@ -1,6 +1,6 @@
 # IssueApi
 
-All URIs are relative to *http://localhost/api/v1*
+All URIs are relative to *https://localhost/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -4823,7 +4823,7 @@ String type = "type_example"; // String | filter by type (issues / pulls) if set
 String milestones = "milestones_example"; // String | comma separated list of milestone names or ids. It uses names and fall back to ids. Fetch only issues that have any of this milestones. Non existent milestones are discarded
 OffsetDateTime since = OffsetDateTime.now(); // OffsetDateTime | Only show items updated after the given time. This is a timestamp in RFC 3339 format
 OffsetDateTime before = OffsetDateTime.now(); // OffsetDateTime | Only show items updated before the given time. This is a timestamp in RFC 3339 format
-String createdBy = "createdBy_example"; // String | Only show items which were created by the the given user
+String createdBy = "createdBy_example"; // String | Only show items which were created by the given user
 String assignedBy = "assignedBy_example"; // String | Only show items for which the given user is assigned
 String mentionedBy = "mentionedBy_example"; // String | Only show items in which the given user was mentioned
 Integer page = 56; // Integer | page number of results to return (1-based)
@@ -4850,7 +4850,7 @@ Name | Type | Description  | Notes
  **milestones** | **String**| comma separated list of milestone names or ids. It uses names and fall back to ids. Fetch only issues that have any of this milestones. Non existent milestones are discarded | [optional]
  **since** | **OffsetDateTime**| Only show items updated after the given time. This is a timestamp in RFC 3339 format | [optional]
  **before** | **OffsetDateTime**| Only show items updated before the given time. This is a timestamp in RFC 3339 format | [optional]
- **createdBy** | **String**| Only show items which were created by the the given user | [optional]
+ **createdBy** | **String**| Only show items which were created by the given user | [optional]
  **assignedBy** | **String**| Only show items for which the given user is assigned | [optional]
  **mentionedBy** | **String**| Only show items in which the given user was mentioned | [optional]
  **page** | **Integer**| page number of results to return (1-based) | [optional]

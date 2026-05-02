@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **enablePush** | **Boolean** |  |  [optional]
 **enablePushWhitelist** | **Boolean** |  |  [optional]
 **enableStatusCheck** | **Boolean** |  |  [optional]
+**ignoreStaleApprovals** | **Boolean** |  |  [optional]
 **mergeWhitelistTeams** | **List&lt;String&gt;** |  |  [optional]
 **mergeWhitelistUsernames** | **List&lt;String&gt;** |  |  [optional]
 **protectedFilePatterns** | **String** |  |  [optional]
