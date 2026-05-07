@@ -121,10 +121,16 @@ jobs:
 
           swagger_template_path = pathlib.Path('upstream-gitea/templates/swagger/v1_json.tmpl')
           swagger = swagger_template_path.read_text(encoding='utf-8')
-          swagger = swagger.replace('{{AppVer | JSEscape}}', version)
-          swagger = swagger.replace('{{AppSubUrl | JSEscape}}', '')
-          swagger = swagger.replace('{{.SwaggerAppVer}}', version)
-          swagger = swagger.replace('{{.SwaggerAppSubUrl}}', '')
+          replacements = {
+              '{{AppVer | JSEscape | Safe}}': version,
+              '{{AppSubUrl | JSEscape | Safe}}': '',
+              '{{AppVer | JSEscape}}': version,
+              '{{AppSubUrl | JSEscape}}': '',
+              '{{.SwaggerAppVer}}': version,
+              '{{.SwaggerAppSubUrl}}': '',
+          }
+          for token, value in replacements.items():
+              swagger = swagger.replace(token, value)
 
           unresolved = sorted(set(re.findall(r'\{\{[^{}]+\}\}', swagger)))
           if unresolved:
