@@ -1,10 +1,10 @@
 
-# ActivityPub
+# EditActionRunnerOption
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**context** | **String** |  |  [optional]
+**disabled** | **Boolean** |  | 
 
 
 
