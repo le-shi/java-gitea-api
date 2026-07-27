@@ -4,14 +4,15 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**active** | **Boolean** |  |  [optional]
-**authorizationHeader** | **String** |  |  [optional]
-**branchFilter** | **String** |  |  [optional]
-**config** | **Map&lt;String, String&gt;** |  |  [optional]
+**active** | **Boolean** | Whether the webhook is active and will be triggered |  [optional]
+**authorizationHeader** | **String** | Authorization header to include in webhook requests |  [optional]
+**branchFilter** | **String** | Branch filter pattern to determine which branches trigger the webhook |  [optional]
+**config** | **Map&lt;String, String&gt;** | Configuration settings for the webhook |  [optional]
 **createdAt** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
-**events** | **List&lt;String&gt;** |  |  [optional]
-**id** | **Long** |  |  [optional]
-**type** | **String** |  |  [optional]
+**events** | **List&lt;String&gt;** | List of events that trigger this webhook |  [optional]
+**id** | **Long** | The unique identifier of the webhook |  [optional]
+**name** | **String** | Optional human-readable name for the webhook |  [optional]
+**type** | **String** | The type of the webhook (e.g., gitea, slack, discord) |  [optional]
 **updatedAt** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 
 

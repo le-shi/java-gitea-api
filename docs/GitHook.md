@@ -4,9 +4,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**content** | **String** |  |  [optional]
-**isActive** | **Boolean** |  |  [optional]
-**name** | **String** |  |  [optional]
+**content** | **String** | Content contains the script content of the hook |  [optional]
+**isActive** | **Boolean** | IsActive indicates if the hook is active |  [optional]
+**name** | **String** | Name is the name of the Git hook |  [optional]
 
 
 
