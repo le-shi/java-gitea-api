@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **dueDate** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **labels** | **List&lt;Long&gt;** | list of label ids |  [optional]
 **milestone** | **Long** | milestone id |  [optional]
+**projects** | **List&lt;Long&gt;** | list of project ids |  [optional]
 **ref** | **String** |  |  [optional]
 **title** | **String** |  | 
 
