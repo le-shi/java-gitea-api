@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **gitContent** | **Boolean** | include git content of default branch in template repo |  [optional]
 **gitHooks** | **Boolean** | include git hooks in template repo |  [optional]
 **labels** | **Boolean** | include labels in template repo |  [optional]
-**name** | **String** | Name of the repository to create | 
-**owner** | **String** | The organization or person who will own the new repository | 
+**name** | **String** |  | 
+**owner** | **String** | the organization&#39;s name or individual user&#39;s name who will own the new repository | 
 **_private** | **Boolean** | Whether the repository is private |  [optional]
 **protectedBranch** | **Boolean** | include protected branches in template repo |  [optional]
 **topics** | **Boolean** | include topics in template repo |  [optional]
