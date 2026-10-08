@@ -149,6 +149,7 @@ jobs:
               '{{.SwaggerAppVer}}': version,
               '{{.SwaggerAppSubUrl}}': '',
               '0.0.0+GITEA-API-APP-VERSION': version,
+              '/GITEA-API-APP-SUBURL': '',
               'GITEA-API-APP-SUBURL': '',
           }
           for token, value in replacements.items():
