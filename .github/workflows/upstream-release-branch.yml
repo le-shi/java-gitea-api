@@ -130,7 +130,16 @@ jobs:
 
           version = os.environ['VERSION']
 
-          swagger_template_path = pathlib.Path('upstream-gitea/templates/swagger/v1_json.tmpl')
+          swagger_dir = pathlib.Path('upstream-gitea/templates/swagger')
+          swagger_template_path = next(
+              (path for path in (
+                  swagger_dir / 'v1_json.tmpl',
+                  swagger_dir / 'v1-swagger.generated.json',
+              ) if path.is_file()),
+              None,
+          )
+          if swagger_template_path is None:
+              raise FileNotFoundError('No supported upstream Swagger 2.0 source file found')
           swagger = swagger_template_path.read_text(encoding='utf-8')
           replacements = {
               '{{AppVer | JSEscape | Safe}}': version,
@@ -139,6 +148,8 @@ jobs:
               '{{AppSubUrl | JSEscape}}': '',
               '{{.SwaggerAppVer}}': version,
               '{{.SwaggerAppSubUrl}}': '',
+              '0.0.0+GITEA-API-APP-VERSION': version,
+              'GITEA-API-APP-SUBURL': '',
           }
           for token, value in replacements.items():
               swagger = swagger.replace(token, value)
