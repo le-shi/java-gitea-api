@@ -164,6 +164,7 @@ jobs:
           gh api \
             -X POST \
             "repos/$GH_REPO/actions/workflows/release.yml/dispatches" \
-            -f ref="$VERSION"
+            -f ref='master' \
+            -f inputs[tag]="$VERSION"
 
           echo "Dispatched release workflow for tag $VERSION"

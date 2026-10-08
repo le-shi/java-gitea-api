@@ -2,6 +2,10 @@ name: Release
 
 on:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: '要发布的本项目 Tag，例如 28.1.0'
+        required: false
   push:
     tags:
       - '*'
@@ -14,23 +18,36 @@ jobs:
     name: Build and publish to Sonatype Central
     runs-on: ubuntu-latest
     steps:
-      - name: Ensure current ref is a tag
+      - name: Resolve release tag
+        id: release
+        env:
+          REQUESTED_TAG: ${{ github.event.inputs.tag }}
         run: |
-          case "$GITHUB_REF" in
-            refs/tags/*) ;;
-            *) echo "This workflow only supports tag refs"; exit 1 ;;
-          esac
+          TAG="$REQUESTED_TAG"
+          if [ -z "$TAG" ]; then
+            case "$GITHUB_REF" in
+              refs/tags/*) TAG="${GITHUB_REF#refs/tags/}" ;;
+              *) echo "Specify an existing release tag"; exit 1 ;;
+            esac
+          fi
+          if ! printf '%s\n' "$TAG" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "tag must use MAJOR.MINOR.PATCH format"
+            exit 1
+          fi
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
       - name: Check out code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}
+          ref: ${{ steps.release.outputs.tag }}
           fetch-depth: 0
 
       - name: Verify checked out ref matches the tag
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
         run: |
-          git rev-parse --verify "$GITHUB_REF"
-          test "$(git rev-parse HEAD)" = "$(git rev-list -n 1 "$GITHUB_REF")"
+          git rev-parse --verify "refs/tags/$TAG"
+          test "$(git rev-parse HEAD)" = "$(git rev-list -n 1 "refs/tags/$TAG")"
 
       - name: Set up Java and Maven Central credentials
         uses: actions/setup-java@v4
@@ -43,6 +60,25 @@ jobs:
           server-password: CENTRAL_PASSWORD
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: GPG_PASSPHRASE
+
+      - name: Set up Maven 3.9.16
+        env:
+          MAVEN_VERSION: 3.9.16
+          MAVEN_SHA512: 831a8591fe20c8243b1dbe7d71e3244f31d1665b0804b2e825e38cbbe5ce0cafb8338851f90780735568773e0a6cd07bbec107cda0b896b008b861075358b6f6
+        run: |
+          ARCHIVE="$RUNNER_TEMP/apache-maven-$MAVEN_VERSION-bin.tar.gz"
+          curl --fail --location --silent --show-error --retry 3 --retry-delay 2 --connect-timeout 15 \
+            "https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/$MAVEN_VERSION/apache-maven-$MAVEN_VERSION-bin.tar.gz" \
+            --output "$ARCHIVE"
+          printf '%s  %s\n' "$MAVEN_SHA512" "$ARCHIVE" | sha512sum --check --status
+          tar -xzf "$ARCHIVE" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/apache-maven-$MAVEN_VERSION/bin" >> "$GITHUB_PATH"
+
+      - name: Verify Maven version
+        run: |
+          MAVEN_INFO="$(mvn --version)"
+          printf '%s\n' "$MAVEN_INFO"
+          grep -Eq '^Apache Maven 3\.9\.16([[:space:]]|$)' <<< "$MAVEN_INFO"
 
       - name: Build and publish release artifacts
         run: mvn -B -Prelease clean deploy
