@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**message** | **String** |  |  [optional]
-**url** | **String** |  |  [optional]
+**message** | **String** | Message contains the error description |  [optional]
+**url** | **String** | URL contains the documentation URL for this error |  [optional]
 
 
 

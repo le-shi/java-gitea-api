@@ -4,12 +4,13 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**active** | **Boolean** |  |  [optional]
-**authorizationHeader** | **String** |  |  [optional]
-**branchFilter** | **String** |  |  [optional]
+**active** | **Boolean** | Whether the webhook should be active upon creation |  [optional]
+**authorizationHeader** | **String** | Authorization header to include in webhook requests |  [optional]
+**branchFilter** | **String** | Branch filter pattern to determine which branches trigger the webhook |  [optional]
 **config** | [**CreateHookOptionConfig**](CreateHookOptionConfig.md) |  | 
-**events** | **List&lt;String&gt;** |  |  [optional]
-**type** | [**TypeEnum**](#TypeEnum) |  | 
+**events** | **List&lt;String&gt;** | List of events that will trigger this webhook |  [optional]
+**name** | **String** | Optional human-readable name for the webhook |  [optional]
+**type** | [**TypeEnum**](#TypeEnum) | The type of the webhook to create | 
 
 
 <a name="TypeEnum"></a>

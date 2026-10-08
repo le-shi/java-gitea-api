@@ -4,11 +4,11 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**payload** | **String** |  |  [optional]
-**reason** | **String** |  |  [optional]
-**signature** | **String** |  |  [optional]
+**payload** | **String** | The signed payload content |  [optional]
+**reason** | **String** | The reason for the verification status |  [optional]
+**signature** | **String** | The GPG signature of the commit |  [optional]
 **signer** | [**PayloadUser**](PayloadUser.md) |  |  [optional]
-**verified** | **Boolean** |  |  [optional]
+**verified** | **Boolean** | Whether the commit signature is verified |  [optional]
 
 
 
