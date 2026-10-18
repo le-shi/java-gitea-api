@@ -11,10 +11,19 @@ Name | Type | Description | Notes
 **issueLabels** | **String** | Label-Set to use |  [optional]
 **license** | **String** | License to use |  [optional]
 **name** | **String** | Name of the repository to create | 
+**objectFormatName** | [**ObjectFormatNameEnum**](#ObjectFormatNameEnum) | ObjectFormatName of the underlying git repository, empty string for default (sha1) |  [optional]
 **_private** | **Boolean** | Whether the repository is private |  [optional]
 **readme** | **String** | Readme of the repository to create |  [optional]
 **template** | **Boolean** | Whether the repository is template |  [optional]
 **trustModel** | [**TrustModelEnum**](#TrustModelEnum) | TrustModel of the repository |  [optional]
+
+
+<a name="ObjectFormatNameEnum"></a>
+## Enum: ObjectFormatNameEnum
+Name | Value
+---- | -----
+SHA1 | &quot;sha1&quot;
+SHA256 | &quot;sha256&quot;
 
 
 <a name="TrustModelEnum"></a>

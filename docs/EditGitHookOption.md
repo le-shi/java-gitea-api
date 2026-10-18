@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**content** | **String** |  |  [optional]
+**content** | **String** | Content is the new script content for the hook |  [optional]
 
 
 

@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**filename** | **String** |  |  [optional]
-**status** | **String** |  |  [optional]
+**filename** | **String** | Filename is the path of the affected file |  [optional]
+**status** | **String** | Status indicates how the file was affected (added, modified, deleted) |  [optional]
 
 
 
