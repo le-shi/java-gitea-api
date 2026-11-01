@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **authPassword** | **String** |  |  [optional]
 **authToken** | **String** |  |  [optional]
 **authUsername** | **String** |  |  [optional]
+**awsAccessKeyId** | **String** |  |  [optional]
+**awsSecretAccessKey** | **String** |  |  [optional]
 **cloneAddr** | **String** |  | 
 **description** | **String** |  |  [optional]
 **issues** | **Boolean** |  |  [optional]
@@ -20,9 +22,9 @@ Name | Type | Description | Notes
 **pullRequests** | **Boolean** |  |  [optional]
 **releases** | **Boolean** |  |  [optional]
 **repoName** | **String** |  | 
-**repoOwner** | **String** | Name of User or Organisation who will own Repo after migration |  [optional]
+**repoOwner** | **String** | the organization&#39;s name or individual user&#39;s name who will own the migrated repository |  [optional]
 **service** | [**ServiceEnum**](#ServiceEnum) |  |  [optional]
-**uid** | **Long** | deprecated (only for backwards compatibility) |  [optional]
+**uid** | **Long** | deprecated (only for backwards compatibility, use repo_owner instead) |  [optional]
 **wiki** | **Boolean** |  |  [optional]
 
 
@@ -38,6 +40,7 @@ GOGS | &quot;gogs&quot;
 ONEDEV | &quot;onedev&quot;
 GITBUCKET | &quot;gitbucket&quot;
 CODEBASE | &quot;codebase&quot;
+CODECOMMIT | &quot;codecommit&quot;
 
 
 

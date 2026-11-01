@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **created** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **time** | **Long** | time in seconds | 
-**userName** | **String** | User who spent the time (optional) |  [optional]
+**userName** | **String** | username of the user who spent the time working on the issue (optional) |  [optional]
 
 
 
