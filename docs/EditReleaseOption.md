@@ -4,12 +4,12 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**body** | **String** |  |  [optional]
-**draft** | **Boolean** |  |  [optional]
-**name** | **String** |  |  [optional]
-**prerelease** | **Boolean** |  |  [optional]
-**tagName** | **String** |  |  [optional]
-**targetCommitish** | **String** |  |  [optional]
+**body** | **String** | The new release notes or description |  [optional]
+**draft** | **Boolean** | Whether to change the draft status |  [optional]
+**name** | **String** | The new display title of the release |  [optional]
+**prerelease** | **Boolean** | Whether to change the prerelease status |  [optional]
+**tagName** | **String** | The new name of the git tag |  [optional]
+**targetCommitish** | **String** | The new target commitish for the release |  [optional]
 
 
 

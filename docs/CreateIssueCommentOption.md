@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**body** | **String** |  | 
+**body** | **String** | Body is the comment text content | 
 
 
 

@@ -1,6 +1,6 @@
 # NotificationApi
 
-All URIs are relative to *http://localhost/api/v1*
+All URIs are relative to *https://localhost/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -386,8 +386,8 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
- - **Accept**: application/json, text/html
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="notifyReadList"></a>
 # **notifyReadList**
